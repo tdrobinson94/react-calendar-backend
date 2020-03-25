@@ -61,63 +61,39 @@ class UserController {
 
 
   async show({ request, response, params: { id } }) {
-    const user = await User.find(id)
+    const user = request.post().user
 
-    if (user) {
-      response.status(200).json({
-        message: 'Here is your customer',
-        data: user
-      })
-    } else {
-      response.status(404).json({
-        message: 'User not found.',
-        id
-      })
-    }
+    response.status(200).json({
+      message: 'Here is your customer',
+      data: user
+    })
   }
 
   async update ({ request, response, params: { id } }) {
-    const user = await User.find(id)
+    const { firstname, lastname, username, password } = request.post()
 
-    if (user) {
-      const { firstname, lastname, username, password } = request.post()
+    user.firstname = firstname
+    user.lastname = lastname
+    user.username = username
+    user.password = password
 
-      user.firstname = firstname
-      user.lastname = lastname
-      user.username = username
-      user.password = password
+    await user.save()
 
-      await user.save()
-
-      response.status(200).json({
-        message: 'Successfully updated a new user',
-        data: user
-      })
-    } else {
-      response.status(404).json({
-        message: 'User not found.',
-        id
-      })
-    }
+    response.status(200).json({
+      message: 'Successfully updated a new user',
+      data: user
+    })
   }
 
-  async destroy ({ response, params: { id } }) {
-    const user = await User.find(id)
+  async destroy ({ request, response, params: { id } }) {
+    const user = request.post().user
 
-    if (user) {
+    await user.delete()
 
-      await user.delete()
-
-      response.status(200).json({
-        message: 'Successfully deleted this user',
-        id
-      })
-    } else {
-      response.status(404).json({
-        message: 'User not found.',
-        id
-      })
-    }
+    response.status(200).json({
+      message: 'Successfully deleted this user',
+      id
+    })
   }
 }
 
