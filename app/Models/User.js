@@ -13,7 +13,7 @@ class User extends Model {
     return ['password'];
   }
 
-  get rules() {
+  static get rules() {
     return {
       username: 'required|unique:users',
       email: 'required|email|unique:users',

@@ -1,6 +1,6 @@
 'use strict'
 
-const { validate } = use('Validator')
+const Validator = use('Validator')
 const User = use('App/Models/User')
 const Hash = use('Hash')
 
@@ -19,7 +19,7 @@ class UserController {
 
     input.password = await Hash.make(input.password)
 
-    const validation = await validate(input, User.rules)
+    const validation = await Validator.validate(input, User.rules)
 
     if (validation.fails()) {
       response.json(validation.messages())
