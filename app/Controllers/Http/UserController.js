@@ -23,7 +23,7 @@ class UserController {
 
     if (validation.fails()) {
       response.json(validation.messages())
-      console.log(validation.messages()[3])
+      console.log(validation.messages())
       return response.status(400).json(validation.messages());
     } else {
       const user = await User.create(input)
@@ -50,7 +50,7 @@ class UserController {
       } else {
         return response.json({
           message: 'Password match',
-          data: user
+          id
         })
       }
     } catch (e) {
