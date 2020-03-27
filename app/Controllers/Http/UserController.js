@@ -47,7 +47,6 @@ class UserController {
           message: 'Password Mismatch',
         })
       } else {
-        user.access_token = yield request.auth.generate(user);
         return response.json({
           message: 'Password match',
           data: user
