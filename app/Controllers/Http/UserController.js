@@ -24,6 +24,7 @@ class UserController {
     if (validation.fails()) {
       response.json(validation.messages())
       console.log(validation.messages())
+      console.log(validation.messages(validation))
       return response.status(400).json(validation.messages());
     } else {
       const user = await User.create(input)
