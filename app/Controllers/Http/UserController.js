@@ -45,12 +45,12 @@ class UserController {
       if (!verify) {
         return response.json({
           message: 'Password Mismatch',
-          data: user
+          id
         })
       } else {
         return response.json({
           message: 'Password match',
-          id
+          data: user
         })
       }
     } catch (e) {
