@@ -42,12 +42,17 @@ class UserController {
       const user = await User.findBy('username', input.username)
       const verify = await Hash.verify(input.password, user.password)
 
-      if (!verify) { throw new Error('Password Mismatch')};
+      if (!verify) {
+        return response.json({
+          message: 'Password Mismatch',
+        })
+      } else {
         user.access_token = await request.auth.generate(user);
         return response.json({
           message: 'Password match',
           data: user
         })
+      }
     } catch (e) {
       return response.status(204).json({ error: e.message })
     }
