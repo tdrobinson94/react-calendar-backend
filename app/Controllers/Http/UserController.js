@@ -48,7 +48,6 @@ class UserController {
           message: 'Password match',
           data: user
         })
-      } 
     } catch (e) {
       return response.status(204).json({ error: e.message })
     }
