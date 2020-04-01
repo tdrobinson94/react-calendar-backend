@@ -8,10 +8,9 @@ class UserController {
   async index ({ request, response}) {
     const users = await User.all()
 
-    response.status(200).json([{
-      message: 'Here are your users form index.',
-      data: users
-    }])
+    response.status(200).json([
+      users.toJSON()
+    ])
   }
 
   async store ({ request, response, params: { id } }) {
