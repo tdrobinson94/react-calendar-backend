@@ -47,9 +47,7 @@ class UserController {
           message: 'Could not verify user',
         })
       } else {
-        return response.json({
-          data: user
-        })
+        return response.json(user.toJSON());
       }
     } catch (e) {
       return response.status(204).json({ error: e.message })
