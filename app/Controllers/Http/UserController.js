@@ -47,7 +47,7 @@ class UserController {
           message: 'Password Mismatch',
         })
       } else {
-        await auth.attempt(input)
+        await FindUser.attempt(input)
         return response.json({
           message: 'Successfully logged in',
           data: user
