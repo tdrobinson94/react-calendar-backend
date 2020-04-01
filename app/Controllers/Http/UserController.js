@@ -47,10 +47,10 @@ class UserController {
           message: 'Not logged in',
         })
       } else {
-        user.access_token = await User.find(id);
+        const access_token = await User.find(id);
         return response.json({
           message: 'Successfully logged in',
-          data: user.access_token
+          data: access_token
         })
       }
     } catch (e) {
