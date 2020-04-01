@@ -8,9 +8,7 @@ class UserController {
   async index ({ request, response}) {
     const users = await User.all()
 
-    response.status(200).json(
-      users.toJSON()
-    )
+    response.status(200).json(users.toJSON())
   }
 
   async store ({ request, response, params: { id } }) {
@@ -25,12 +23,9 @@ class UserController {
       console.log(validation.messages())
       return response.status(400).json(validation.messages());
     } else {
-      const user = await User.create(input)
+      const newUser = await User.create(input)
 
-      response.status(201).json({
-        message: 'Successfully created a new user.',
-        data: user
-      })
+      response.status(201).json(newUser.toJSON())
     }
   }
 
@@ -46,10 +41,7 @@ class UserController {
           message: 'Could not verify user',
         })
       } else {
-        return response.json({
-          message: 'Successfully logged in',
-          data: user
-        })
+        return response.json(user.toJSON())
       }
     } catch (e) {
       return response.status(204).json({ error: e.message })
@@ -61,10 +53,7 @@ class UserController {
   async show({ request, response, params: { id } }) {
     const user = await User.find(id)
 
-    response.status(200).json({
-      message: 'Here is your user',
-      data: user
-    })
+    response.status(200).json(user.toJSON())
   }
 
   async update ({ request, response, params: { id } }) {
