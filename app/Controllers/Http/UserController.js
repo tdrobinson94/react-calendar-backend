@@ -49,7 +49,8 @@ class UserController {
       } else {
         return response.json({
           message: 'Successfully logged in',
-          data: user
+          data: user,
+          id
         })
       }
     } catch (e) {
