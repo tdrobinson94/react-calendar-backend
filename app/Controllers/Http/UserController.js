@@ -44,7 +44,7 @@ class UserController {
 
       if (!verify) {
         return response.json({
-          message: 'Not logged in',
+          message: 'Could not verify user',
         })
       } else {
         return response.json({
