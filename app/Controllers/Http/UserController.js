@@ -47,10 +47,9 @@ class UserController {
           message: 'Password Mismatch',
         })
       } else {
-        // user.access_token = await request.FindUser.generate(user);
-        // console.log(user.access_token);
+        await auth.attempt(input)
         return response.json({
-          message: 'Password match',
+          message: 'Successfully logged in',
           data: user
         })
       }
