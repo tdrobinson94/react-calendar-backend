@@ -8,10 +8,10 @@ class UserController {
   async index ({ request, response}) {
     const users = await User.all()
 
-    response.status(200).json({
+    response.status(200).json([{
       message: 'Here are your users form index.',
       data: users
-    })
+    }])
   }
 
   async store ({ request, response, params: { id } }) {
@@ -47,7 +47,10 @@ class UserController {
           message: 'Could not verify user',
         })
       } else {
-        return response.json([user.toJSON()]);
+        return response.json({
+          message: 'Successfully logged in',
+          data: user
+        })
       }
     } catch (e) {
       return response.status(204).json({ error: e.message })
