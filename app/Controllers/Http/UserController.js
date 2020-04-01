@@ -47,7 +47,6 @@ class UserController {
           message: 'Not logged in',
         })
       } else {
-        user.access_token = await request.User.find(id);
         return response.json({
           message: 'Successfully logged in',
           data: user
