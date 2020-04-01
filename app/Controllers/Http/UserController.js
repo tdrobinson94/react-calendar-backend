@@ -47,7 +47,7 @@ class UserController {
           message: 'Not logged in',
         })
       } else {
-        user.access_token = await request.auth.generate(user);
+        // user.access_token = await request.auth.generate(user);
         return response.json(user.toJSON());
         // return response.json({
         //   message: 'Successfully logged in',
