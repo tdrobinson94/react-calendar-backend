@@ -39,17 +39,18 @@ class UserController {
     const input = request.only(['username', 'password'])
 
     try {
-      const user = await User.find(id)
+      const user = await User.findBy('username', input.username)
       const verify = await Hash.verify(input.password, user.password)
 
       if (!verify) {
         return response.json({
-          message: 'Password Mismatch',
+          message: 'Not logged in',
         })
       } else {
+        user.access_token = await User.find(id);
         return response.json({
           message: 'Successfully logged in',
-          data: user
+          data: user.access_token
         })
       }
     } catch (e) {
