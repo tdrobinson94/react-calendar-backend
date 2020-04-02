@@ -36,7 +36,7 @@ class UserController {
       const user = await User.findBy('username', input.username)
       const verify = await Hash.verify(input.password, user.password)
 
-      if (!verify || null) {
+      if (!verify) {
         return response.status(400).json({
           message: 'Could not verify user',
         })
