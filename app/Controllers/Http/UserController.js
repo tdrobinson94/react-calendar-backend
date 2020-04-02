@@ -51,7 +51,7 @@ class UserController {
 
 
   async show({ request, response, params: { id } }) {
-    const user = await User.find(id)
+    const user = request.post().user
 
     response.status(200).json([user.toJSON()])
   }
