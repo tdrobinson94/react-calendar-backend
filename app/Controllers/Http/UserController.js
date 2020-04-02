@@ -32,21 +32,24 @@ class UserController {
   async login ({ request, response, auth, params: { id } }) {
     const input = request.only(['username', 'password'])
 
-    try {
-      const user = await User.findBy('username', input.username)
-      const verify = await Hash.verify(input.password, user.password)
+    await auth.attempt(username, password)
 
-     if (!verify) {
-        return response.json({
-          message: 'Could not verify user',
-        })
-      } else {
-        await auth.attempt(username, password)
-        return response.status(201).json(user.toJSON())
-      }
-    } catch (e) {
-      return response.status(204).json({ error: e.message })
-    }
+    return 'Logged in successfully'
+
+    // try {
+    //   const user = await User.findBy('username', input.username)
+    //   const verify = await Hash.verify(input.password, user.password)
+
+    //  if (!verify) {
+    //     return response.json({
+    //       message: 'Could not verify user',
+    //     })
+    //   } else {
+    //     return response.status(201).json(user.toJSON())
+    //   }
+    // } catch (e) {
+    //   return response.status(204).json({ error: e.message })
+    // }
   }
 
 
