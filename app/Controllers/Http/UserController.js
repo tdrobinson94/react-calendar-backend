@@ -37,11 +37,11 @@ class UserController {
       const verify = await Hash.verify(input.password, user.password)
 
       if (!verify) {
-        return response.json({
+        return response.status(400).json({
           message: 'Could not verify user',
         })
       } else {
-        return response.json(user.toJSON())
+        return response.status(201).json(user.toJSON())
       }
     } catch (e) {
       return response.status(204).json({ error: e.message })
