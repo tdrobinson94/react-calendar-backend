@@ -33,18 +33,14 @@ class UserController {
     const input = request.only(['username', 'password'])
 
     try {
-      const user = await User.findBy('username', input.username)
+      // const user = await User.findBy('username', input.username)
+      const user = await User.find(id)
       const verify = await Hash.verify(input.password, user.password)
-      const checkUser = await User.find(id)
 
      if (!verify) {
         return response.status(400).json({
           message: 'Could not verify user',
         })
-      } else if (!checkUser) {
-       return response.status(404).json({
-         message: 'User not found',
-       })
       } else {
         return response.status(201).json(user.toJSON())
       }
