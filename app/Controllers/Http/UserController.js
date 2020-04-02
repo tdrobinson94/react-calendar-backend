@@ -40,10 +40,9 @@ class UserController {
         return response.json({
           message: 'Could not verify user',
         })
-      } else {
+      } 
         user.access_token = await request.auth.generate(user)
         return response.status(201).json(user.toJSON())
-      }
     } catch (e) {
       return response.status(204).json({ error: e.message })
     }
