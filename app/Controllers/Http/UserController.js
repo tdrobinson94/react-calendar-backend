@@ -53,7 +53,11 @@ class UserController {
   async show({ request, response, params: { id } }) {
     const user = request.post().user
 
-    response.status(200).json([user.toJSON()])
+    // response.status(200).json([user.toJSON()])
+    response.status(200).json({
+      message: 'Here is your user',
+      data: user
+    })
   }
 
   async update ({ request, response, params: { id } }) {
