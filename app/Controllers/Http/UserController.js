@@ -44,7 +44,7 @@ class UserController {
         let token = await auth.generate(user)
 
         Object.assign(user, token)
-        return response.json(user)
+        return response.json(user.toJSON())
       }
 
     //  if (!verify) {
