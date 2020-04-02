@@ -29,7 +29,7 @@ class UserController {
     }
   }
 
-  async login ({ request, response, params: { id } }) {
+  async login ({ request, response, auth, params: { id } }) {
     const input = request.only(['username', 'password'])
 
     try {
@@ -41,6 +41,7 @@ class UserController {
           message: 'Could not verify user',
         })
       } else {
+        await auth.attempt(username, password)
         return response.status(201).json(user.toJSON())
       }
     } catch (e) {
