@@ -41,7 +41,7 @@ class UserController {
         return response.status(400).json({
           message: 'Could not verify user',
         })
-      } else if (!user) {
+      } else if (!checkUser) {
        return response.status(404).json({
          message: 'User not found',
        })
