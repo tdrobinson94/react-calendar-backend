@@ -33,8 +33,7 @@ class UserController {
     const input = request.only(['username', 'password'])
 
     try {
-      // const user = await User.findBy('username', input.username)
-      const user = await User.find(id)
+      const user = await User.findBy('username', input.username)
       const verify = await Hash.verify(input.password, user.password)
 
      if (!verify) {

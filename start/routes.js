@@ -25,4 +25,4 @@ Route.get('/user/:id', 'UserController.show').middleware(['FindUser'])
 Route.patch('/updateuser/:id', 'UserController.update').middleware(['FindUser'])
 Route.delete('/deleteuser/:id', 'UserController.destroy').middleware(['FindUser'])
 
-Route.post('/login', 'UserController.login').middleware(['FindUser'])
+Route.post('/login', 'UserController.login')
