@@ -37,9 +37,7 @@ class UserController {
       const verify = await Hash.verify(input.password, user.password)
 
       if (!verify) {
-        return response.json({
-          message: 'Could not verify user',
-        })
+        throw new Error('Could not verify user')
       } else {
         return response.json(user.toJSON())
       }
