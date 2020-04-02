@@ -11,7 +11,7 @@ class UserController {
     response.status(200).json(users.toJSON())
   }
 
-  async store ({ request, auth, response, params: { id } }) {
+  async store ({ request, response, params: { id } }) {
     const input = request.only(['firstname', 'lastname', 'username', 'email', 'password'])
 
     input.password = await Hash.make(input.password)
@@ -25,10 +25,6 @@ class UserController {
     } else {
       const newUser = await User.create(input)
 
-      let token = await auth.generate(newUser)
-
-      Object.assign(user, token)
-
       response.status(201).json(newUser.toJSON())
     }
   }
@@ -37,23 +33,16 @@ class UserController {
     const input = request.only(['username', 'password'])
 
     try {
+      const user = await User.findBy('username', input.username)
       const verify = await Hash.verify(input.password, user.password)
 
-      if (await auth.attempt(username, password)) {
-        const user = await User.findBy('username', input.username)
-        let token = await auth.generate(user)
-
-        Object.assign(user, token)
-        return response.json(user.toJSON())
+     if (!verify) {
+        return response.json({
+          message: 'Could not verify user',
+        })
+      } else {
+        return response.status(201).json(user.toJSON())
       }
-
-    //  if (!verify) {
-    //     return response.json({
-    //       message: 'Could not verify user',
-    //     })
-    //   } else {
-    //     return response.status(201).json(user.toJSON())
-    //   }
     } catch (e) {
       return response.status(204).json({ error: e.message })
     }
