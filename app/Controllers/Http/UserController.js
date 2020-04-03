@@ -30,48 +30,47 @@ class UserController {
   }
 
   async login ({ request, response, auth, params: { id } }) {
-    // const username = request.input('username')
-    // const password = request.input('password')
-
-    // try {
-    //   const user = await User.findBy('username', username)
-    //   const verify = await Hash.verify(password, user.password)
-
-    //  if (!verify) {
-    //     return response.json({
-    //       message: 'Incorrect password',
-    //     })
-    //   } 
-    //   let token = await auth.generate(user)
-
-    //   Object.assign(user, token)
-    //   return response.status(201).json(user.toJSON())
-
-    // } catch (e) {
-    //   return response.json({
-    //     message: 'Incorrect username',
-    //   })
-    // }
+    const username = request.input('username')
+    const password = request.input('password')
 
     try {
       const user = await User.findBy('username', username)
-      // validate the user credentials and generate a JWT token
-      const token = await auth.attempt(
-        request.input('username'),
-        request.input('password')
-      )
-      Object.assign(user, token)
+      const verify = await Hash.verify(password, user.password)
 
+     if (!verify) {
+        return response.json({
+          message: 'Incorrect password',
+        })
+      } 
+      let token = await auth.generate(user)
+
+      Object.assign(user, token)
+      return response.status(201).json(user.toJSON())
+
+    } catch (e) {
       return response.json({
-        status: 'success',
-        data: user
-      })
-    } catch (error) {
-      response.status(400).json({
-        status: 'error',
-        message: 'Invalid username/password'
+        message: 'Incorrect username',
       })
     }
+
+    // try {
+    //   // validate the user credentials and generate a JWT token
+    //   const token = await auth.attempt(
+    //     request.input('username'),
+    //     request.input('password')
+    //   )
+    //   Object.assign(user, token)
+
+    //   return response.json({
+    //     status: 'success',
+    //     data: user
+    //   })
+    // } catch (error) {
+    //   response.status(400).json({
+    //     status: 'error',
+    //     message: 'Invalid username/password'
+    //   })
+    // }
   }
 
 
