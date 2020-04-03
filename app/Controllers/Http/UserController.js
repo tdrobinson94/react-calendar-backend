@@ -103,7 +103,7 @@ class UserController {
 
     await user.delete()
 
-    response.status(204).json({
+    response.json({
       message: 'Successfully deleted this user',
       id
     })
