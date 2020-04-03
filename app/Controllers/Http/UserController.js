@@ -30,37 +30,37 @@ class UserController {
   }
 
   async login ({ request, response, auth, params: { id } }) {
-    const input = request.only(['username', 'password'])
-    // const username = request.input('username')
-    // const password = request.input('password')
-
-    // try {
-    //   if (await auth.attempt(username, password)) {
-    //     const user = await User.findBy('username', input.username)
-    //     let token = await auth.generate(user)
-    //     console.log(token)
-    //     return response.status(201).json(user.toJSON())
-    //   }
-    // } catch(e) {
-    //   console.log(e)
-    //   return response.status(204).json({message: 'You are not registered!'})
-    // }
+    // const input = request.only(['username', 'password'])
+    const username = request.input('username')
+    const password = request.input('password')
 
     try {
-      const user = await User.findBy('username', input.username)
-      const verify = await Hash.verify(input.password, user.password)
-
-     if (!verify) {
-        return response.json({
-          message: 'Could not verify user',
-        })
-      } 
-
-      return response.status(201).json(user.toJSON())
-
-    } catch (e) {
-      return response.status(204).json({ error: e.message })
+      if (await auth.attempt(username, password)) {
+        const user = await User.findBy('username', username)
+        let token = await auth.generate(user)
+        console.log(token)
+        return response.status(201).json(user.toJSON())
+      }
+    } catch(e) {
+      console.log(e)
+      return response.status(204).json({message: 'You are not registered!'})
     }
+
+    // try {
+    //   const user = await User.findBy('username', input.username)
+    //   const verify = await Hash.verify(input.password, user.password)
+
+    //  if (!verify) {
+    //     return response.json({
+    //       message: 'Could not verify user',
+    //     })
+    //   } 
+
+    //   return response.status(201).json(user.toJSON())
+
+    // } catch (e) {
+    //   return response.status(204).json({ error: e.message })
+    // }
   }
 
 
