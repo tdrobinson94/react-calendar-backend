@@ -21,7 +21,7 @@ class UserController {
     if (validation.fails()) {
       response.json(validation.messages())
       console.log(validation.messages())
-      return response.status(422).json(validation.messages());
+      return response.status(422).json(validation.messages())
     } else {
       const newUser = await User.create(input)
 
@@ -55,8 +55,8 @@ class UserController {
 
 
 
-  async show({ params, response }) {
-    const user = await User.find(params.id)
+  async show({ auth, response }) {
+    const user = await auth.getUser()
 
     return response.status(200).json({
       message: 'Here is your user',
