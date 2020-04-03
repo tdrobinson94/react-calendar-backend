@@ -24,9 +24,6 @@ class UserController {
       return response.status(422).json(validation.messages());
     } else {
       const newUser = await User.create(input)
-      let token = await auth.generate(user)
-
-      Object.assign(newUser, token)
 
       response.status(201).json(newUser.toJSON())
     }
