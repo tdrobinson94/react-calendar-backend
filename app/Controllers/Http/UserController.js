@@ -56,9 +56,7 @@ class UserController {
 
 
   async show({ auth, response }) {
-    // const user = await User.find(params.id)
-    const user = await User.query()
-      .where('id', auth.current.user.id).firstOrFail()
+    const user = await User.find(auth.current.user.id)
 
     return response.status(200).json({
       message: 'Here is your user',
