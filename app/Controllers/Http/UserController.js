@@ -59,15 +59,16 @@ class UserController {
         request.input('username'),
         request.input('password')
       )
+      Object.assign(user, token)
 
       return response.json({
         status: 'success',
-        data: user, token
+        data: user
       })
     } catch (error) {
       response.status(400).json({
         status: 'error',
-        message: 'Invalid email/password'
+        message: 'Invalid username/password'
       })
     }
   }
