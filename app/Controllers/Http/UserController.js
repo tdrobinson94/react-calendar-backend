@@ -31,8 +31,8 @@ class UserController {
 
   async login ({ request, response, auth, params: { id } }) {
     const input = request.only('username', 'password')
-    // const username = request.input('username')
-    // const password = request.input('password')
+    const username = request.input('username')
+    const password = request.input('password')
 
     // try {
     //   if (await auth.attempt(username, password)) {
@@ -47,8 +47,8 @@ class UserController {
     // }
 
     try {
-      const user = await User.findBy('username', input.username)
-      const verify = await Hash.verify(input.password, user.password)
+      const user = await User.findBy('username', username)
+      const verify = await Hash.verify(password, user.password)
 
      if (!verify) {
         return response.json({
