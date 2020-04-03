@@ -30,8 +30,9 @@ class UserController {
   }
 
   async login ({ request, response, auth, params: { id } }) {
-    const username = request.input('username')
-    const password = request.input('password')
+    // const username = request.input('username')
+    // const password = request.input('password')
+    const { username, password } = request.only(['username', 'password'])
 
     try {
       const user = await User.findBy('username', username)
