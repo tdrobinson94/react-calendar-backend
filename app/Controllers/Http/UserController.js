@@ -38,6 +38,7 @@ class UserController {
 
         return response.status(201).json(user.toJSON())
         let token = await auth.generate(user)
+        console.log(token)
       }
     } catch(e) {
       console.log(e)
