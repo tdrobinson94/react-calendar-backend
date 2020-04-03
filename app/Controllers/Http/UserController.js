@@ -57,10 +57,10 @@ class UserController {
 
 
   async show({ request, response, params: { id } }) {
-    // const user = await User.find(id)
-    return response.json(request.authUser)
+    const user = await User.find(id)
+    // return response.json(request.authUser)
 
-    // response.status(200).json([user.toJSON()])
+    response.status(200).json([user.toJSON()])
   }
 
   async update ({ request, response, params: { id } }) {
@@ -81,10 +81,7 @@ class UserController {
   }
 
   async destroy ({ request, response, params: { id } }) {
-    // const user = request.post().user
-    const input = request.only('username', 'password')
-    input.id = request.authUser.id;
-    const user = User.findBy('id', request.param('id'))
+    const user = request.post().user
 
     await user.delete()
 
