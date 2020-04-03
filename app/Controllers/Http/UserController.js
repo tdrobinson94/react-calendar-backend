@@ -60,9 +60,7 @@ class UserController {
     const user = request.post().user
     // return response.json(request.authUser)
 
-    response.status(200).json([{
-      data: user
-    }])
+    response.status(200).json([user.toJSON()])
   }
 
   async update ({ request, response, params: { id } }) {
