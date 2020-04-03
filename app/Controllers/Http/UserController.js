@@ -59,12 +59,17 @@ class UserController {
   async show({ auth, request, response, params: { id } }) {
     // const user = request.post().user
     const user = await User.find(id)
-    // if (auth.user.id !== Number(params.id)) {
-    //   return 'You cannot see someone else\'s profile'
-    // }
-    // return auth.user
+      if (!user) {
+        return response.status(404).json({
+          message: 'User not found',
+          id
+        })
+      }
 
-    return response.json(user)
+    return response.status(200).json({
+      message: 'Here is your user',
+      data: user
+    })
   }
 
   async update ({ request, response, params: { id } }) {
