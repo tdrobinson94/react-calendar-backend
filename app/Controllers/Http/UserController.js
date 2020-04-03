@@ -29,7 +29,7 @@ class UserController {
     }
   }
 
-  async login ({ request, response, auth ) {
+  async login ({ request, response, auth }) {
     const { username, password } = request.only(['username', 'password'])
 
     try {

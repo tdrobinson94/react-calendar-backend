@@ -11,7 +11,7 @@ class FindUser {
    * @param {Request} ctx.request
    * @param {Function} next
    */
-  async handle ({ request, response, paras }, next) {
+  async handle ({ request, response, params }, next) {
     // call next to advance the request
     const user = await User.find(params.id)
 
