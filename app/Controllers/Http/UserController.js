@@ -66,10 +66,10 @@ class UserController {
 
 
   async show({ request, response, params: { id } }) {
-    const user = await User.find(id)
-    // return response.json(request.authUser)s
+    // const user = await User.find(id)
+    return response.json(request.authUser)
 
-    response.status(200).json([user.toJSON()])
+    // response.status(200).json([user.toJSON()])
   }
 
   async update ({ request, response, params: { id } }) {
