@@ -37,7 +37,11 @@ class UserController {
       const user = await User.findBy('username', username)
       const verify = await Hash.verify(password, user.password)
 
-     if (!verify) { throw new Error('Password is Incorrect')} 
+     if (!verify) {
+        return response.json({
+          message: 'Password incorrect',
+        })
+      } 
       let token = await auth.generate(user)
       return response.status(201).json(user.toJSON())
 
