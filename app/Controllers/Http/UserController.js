@@ -30,28 +30,38 @@ class UserController {
   }
 
   async login ({ request, response, auth, params: { id } }) {
-    const username = request.input('username')
-    const password = request.input('password')
+    // const username = request.input('username')
+    // const password = request.input('password')
 
-    try {
-      const user = await User.findBy('username', username)
-      const verify = await Hash.verify(password, user.password)
+    // try {
+    //   const user = await User.findBy('username', username)
+    //   const verify = await Hash.verify(password, user.password)
 
-     if (!verify) {
-        return response.json({
-          message: 'Incorrect password',
-        })
-      } 
-      let token = await auth.generate(user)
+    //  if (!verify) {
+    //     return response.json({
+    //       message: 'Incorrect password',
+    //     })
+    //   } 
+    //   let token = await auth.generate(user)
 
-      Object.assign(user, token)
-      return response.status(201).json(user.toJSON())
+    //   Object.assign(user, token)
+    //   return response.status(201).json(user.toJSON())
 
-    } catch (e) {
-      return response.json({
-        message: 'Incorrect username',
-      })
-    }
+    // } catch (e) {
+    //   return response.json({
+    //     message: 'Incorrect username',
+    //   })
+    // }
+
+    const token = await auth.attempt(
+      request.input('username'),
+      request.input('password')
+    )
+
+    return response.json({
+      message: 'success',
+      data: token
+    })
   }
 
 
@@ -59,10 +69,10 @@ class UserController {
   async show({ auth, request, response, params }) {
     // const user = request.post().user
     // const user = await User.find(id)
-    if (auth.user.id !== Number(params.id)) {
-      return 'You cannot see someone else\'s profile'
-    }
-    return auth.user
+    // if (auth.user.id !== Number(params.id)) {
+    //   return 'You cannot see someone else\'s profile'
+    // }
+    // return auth.user
 
     // return response.json(user)
   }
