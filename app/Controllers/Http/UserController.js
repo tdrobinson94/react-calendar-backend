@@ -42,7 +42,8 @@ class UserController {
         })
       } 
       // let token = await auth.attempt(username, password)
-      
+
+      // Object.assign(user, token)
       return response.status(201).json(user.toJSON())
 
     } catch (e) {
@@ -61,9 +62,11 @@ class UserController {
   }
 
   async update ({ request, response, params: { id } }) {
-    const user = await User.find(params.id)
-    const { username, password } = request.post()
+    const user = request.post().user
+    const { firstname, lastname, username, password } = request.post()
 
+    user.firstname = firstname
+    user.lastname = lastname
     user.username = username
     user.password = password
 
