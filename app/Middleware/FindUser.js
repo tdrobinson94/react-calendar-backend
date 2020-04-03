@@ -11,9 +11,9 @@ class FindUser {
    * @param {Request} ctx.request
    * @param {Function} next
    */
-  async handle ({ request, response, params: { id } }, next) {
+  async handle ({ request, response, paras }, next) {
     // call next to advance the request
-    const user = await User.find(id)
+    const user = await User.find(params.id)
 
     if (!user) {
       return response.status(404).json({
