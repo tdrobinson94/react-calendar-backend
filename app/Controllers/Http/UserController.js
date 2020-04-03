@@ -58,7 +58,7 @@ class UserController {
 
   async show({ auth, response, params }) {
     // const user = request.post().user
-    const user = await User.find(id)
+    // const user = await User.find(id)
     // return response.json(request.authUser)
 
     if (auth.user.id !== Number(params.id)) {
