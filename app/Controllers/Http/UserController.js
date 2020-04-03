@@ -39,14 +39,16 @@ class UserController {
 
      if (!verify) {
         return response.json({
-          message: 'Password incorrect',
+          message: 'Incorrect password',
         })
       } 
       let token = await auth.generate(user)
       return response.status(201).json(user.toJSON())
 
     } catch (e) {
-      return response.status(204).json({ error: e.message })
+      return response.status(204).json({
+        message: 'Incorrect username',
+      })
     }
   }
 
