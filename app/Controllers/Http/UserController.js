@@ -95,11 +95,15 @@ class UserController {
   }
 
   async destroy ({ request, response, params: { id } }) {
-    const user = request.post().user
+    // const user = request.post().user
+    const input = request.only('username', 'password')
+    input.id = request.authUser.id;
+
+    const user = User.findBy('id', request.param('id'))
 
     await user.delete()
 
-    response.status(200).json({
+    response.status(204).json({
       message: 'Successfully deleted this user',
       id
     })
