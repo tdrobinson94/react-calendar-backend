@@ -41,7 +41,7 @@ class UserController {
           message: 'Incorrect password',
         })
       } 
-      let token = await auth.generate(user)
+      let token = await auth.attempt(username, password)
 
       Object.assign(user, token)
       return response.status(201).json(user.toJSON())
