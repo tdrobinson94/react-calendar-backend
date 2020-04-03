@@ -21,7 +21,7 @@ Route.get('/', () => {
 })
 Route.post('/signup', 'UserController.store')
 Route.get('/users', 'UserController.index')
-Route.get('/user', 'UserController.show').middleware(['auth:jwt'])
+Route.get('/user', 'UserController.show')
 Route.patch('/updateuser/:id', 'UserController.update').middleware(['auth:jwt'])
 Route.delete('/deleteuser/:id', 'UserController.destroy').middleware(['FindUser'])
 
