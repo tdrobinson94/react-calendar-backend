@@ -62,7 +62,7 @@ class UserController {
 
       return response.json({
         status: 'success',
-        data: token
+        data: user, token
       })
     } catch (error) {
       response.status(400).json({
