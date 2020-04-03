@@ -54,6 +54,7 @@ class UserController {
     // }
 
     try {
+      const user = await User.findBy('username', username)
       // validate the user credentials and generate a JWT token
       const token = await auth.attempt(
         request.input('username'),
@@ -63,7 +64,7 @@ class UserController {
 
       return response.json({
         status: 'success',
-        data: token
+        data: user, token
       })
     } catch (error) {
       response.status(400).json({
