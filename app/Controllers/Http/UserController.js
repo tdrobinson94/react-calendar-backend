@@ -56,10 +56,15 @@ class UserController {
 
 
 
-  async show({ request, auth, response }) {
-    const user = auth.current.user
+  async show({ auth, request, response, params: { id } }) {
+    // const user = request.post().user
+    const user = await User.find(id)
+    // if (auth.user.id !== Number(params.id)) {
+    //   return 'You cannot see someone else\'s profile'
+    // }
+    // return auth.user
 
-    return response.json(user.toJSON());
+    return response.json(user)
   }
 
   async update ({ request, response, params: { id } }) {
