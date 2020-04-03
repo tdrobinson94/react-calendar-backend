@@ -37,7 +37,6 @@ class UserController {
         const user = await User.findBy('username', input.username)
         let token = await auth.generate(user)
 
-        Object.assign(user, token)
         return response.status(201).json(user.toJSON())
       }
     } catch(e) {
@@ -98,7 +97,7 @@ class UserController {
 
     await user.delete()
 
-    response.status(204).json({
+    response.json({
       message: 'Successfully deleted this user',
       id
     })
