@@ -55,10 +55,10 @@ class UserController {
 
 
 
-  async show({ request, response }) {
-    const user = request.post().user
+  async show({ params, response }) {
+    const user = await User.find(params.id)
 
-    return response.json([{
+    return response.status(200).json([{
       message: 'Here is your user',
       data: user
     }])
