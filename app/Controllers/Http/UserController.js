@@ -11,7 +11,7 @@ class UserController {
     response.status(200).json(users.toJSON())
   }
 
-  async store ({ request, response, params: { id } }) {
+  async store ({ request, auth, response, params: { id } }) {
     const input = request.only(['firstname', 'lastname', 'username', 'email', 'password'])
 
     input.password = await Hash.make(input.password)
@@ -21,9 +21,12 @@ class UserController {
     if (validation.fails()) {
       response.json(validation.messages())
       console.log(validation.messages())
-      return response.json(validation.messages());
+      return response.status(422).json(validation.messages());
     } else {
       const newUser = await User.create(input)
+      let token = await auth.generate(user)
+
+      Object.assign(newUser, token)
 
       response.status(201).json(newUser.toJSON())
     }
@@ -33,19 +36,33 @@ class UserController {
     const input = request.only(['username', 'password'])
 
     try {
-      const user = await User.findBy('username', input.username)
-      const verify = await Hash.verify(input.password, user.password)
+      if (await auth.attempt(input)) {
+        const user = await User.findBy('username', input.username)
+        let token = await auth.generate(user)
 
-     if (!verify) {
-        return response.json({
-          message: 'Could not verify user',
-        })
-      } else {
+        Object.assign(user, token)
         return response.status(201).json(user.toJSON())
       }
-    } catch (e) {
-      return response.status(204).json({ error: e.message })
+    } catch(e) {
+      console.log(e)
+      return response.status(204).json({message: 'You are not registered!'})
     }
+
+    // try {
+    //   const user = await User.findBy('username', input.username)
+    //   const verify = await Hash.verify(input.password, user.password)
+
+    //  if (!verify) {
+    //     return response.json({
+    //       message: 'Could not verify user',
+    //     })
+    //   } 
+
+    //   return response.status(201).json(user.toJSON())
+
+    // } catch (e) {
+    //   return response.status(204).json({ error: e.message })
+    // }
   }
 
 
