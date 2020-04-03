@@ -58,7 +58,8 @@ class UserController {
 
   async show({ auth, request, response, params }) {
     // const user = request.post().user
-    const user = await User.find(id)
+    // const user = await User.find(id)
+    const auth = request.header('Authorization')
     // return response.json(request.authUser)
 
     return response.json(auth.user)
