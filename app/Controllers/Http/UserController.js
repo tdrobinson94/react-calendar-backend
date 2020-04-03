@@ -24,9 +24,9 @@ class UserController {
       return response.status(422).json(validation.messages());
     } else {
       const newUser = await User.create(input)
-      let token = await auth.generate(user)
+      // let token = await auth.generate(user)
 
-      Object.assign(newUser, token)
+      // Object.assign(newUser, token)
 
       response.status(201).json(newUser.toJSON())
     }
@@ -35,34 +35,34 @@ class UserController {
   async login ({ request, response, auth, params: { id } }) {
     const input = request.only(['username', 'password'])
 
-    try {
-      if (await auth.attempt(input)) {
-        const user = await User.findBy('username', input.username)
-        let token = await auth.generate(user)
-
-        Object.assign(user, token)
-        return response.status(201).json(user.toJSON())
-      }
-    } catch(e) {
-      console.log(e)
-      return response.status(204).json({message: 'You are not registered!'})
-    }
-
     // try {
-    //   const user = await User.findBy('username', input.username)
-    //   const verify = await Hash.verify(input.password, user.password)
+    //   if (await auth.attempt(input)) {
+    //     const user = await User.findBy('username', input.username)
+    //     let token = await auth.generate(user)
 
-    //  if (!verify) {
-    //     return response.json({
-    //       message: 'Could not verify user',
-    //     })
-    //   } 
-
-    //   return response.status(201).json(user.toJSON())
-
-    // } catch (e) {
-    //   return response.status(204).json({ error: e.message })
+    //     Object.assign(user, token)
+    //     return response.status(201).json(user.toJSON())
+    //   }
+    // } catch(e) {
+    //   console.log(e)
+    //   return response.status(204).json({message: 'You are not registered!'})
     // }
+
+    try {
+      const user = await User.findBy('username', input.username)
+      const verify = await Hash.verify(input.password, user.password)
+
+     if (!verify) {
+        return response.json({
+          message: 'Could not verify user',
+        })
+      } 
+
+      return response.status(201).json(user.toJSON())
+
+    } catch (e) {
+      return response.status(204).json({ error: e.message })
+    }
   }
 
 
