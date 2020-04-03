@@ -57,7 +57,7 @@ class UserController {
 
 
   async show({ auth, request, response, params: { id } }) {
-    const user = auth.post().user
+    const user = auth.current().user
 
     return response.status(200).json({
       message: 'Here is your user',
