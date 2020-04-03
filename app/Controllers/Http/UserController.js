@@ -53,15 +53,23 @@ class UserController {
     //   })
     // }
 
-    const token = await auth.attempt(
-      request.input('username'),
-      request.input('password')
-    )
+    try {
+      // validate the user credentials and generate a JWT token
+      const token = await auth.attempt(
+        request.input('email'),
+        request.input('password')
+      )
 
-    return response.json({
-      message: 'success',
-      data: token
-    })
+      return response.json({
+        status: 'success',
+        data: token
+      })
+    } catch (error) {
+      response.status(400).json({
+        status: 'error',
+        message: 'Invalid email/password'
+      })
+    }
   }
 
 
