@@ -30,9 +30,9 @@ class UserController {
   }
 
   async login ({ request, response, auth, params: { id } }) {
-    // const input = request.only(['username', 'password'])
-    const username = request.input('username')
-    const password = request.input('password')
+    const input = request.only(['username', 'password'])
+    // const username = request.input('username')
+    // const password = request.input('password')
 
     try {
       if (await auth.attempt(username, password)) {
@@ -46,28 +46,28 @@ class UserController {
       return response.status(204).json({message: 'You are not registered!'})
     }
 
-    // try {
-    //   const user = await User.findBy('username', input.username)
-    //   const verify = await Hash.verify(input.password, user.password)
+    try {
+      const user = await User.findBy('username', input.username)
+      const verify = await Hash.verify(input.password, user.password)
 
-    //  if (!verify) {
-    //     return response.json({
-    //       message: 'Could not verify user',
-    //     })
-    //   } 
+     if (!verify) {
+        return response.json({
+          message: 'Could not verify user',
+        })
+      } 
 
-    //   return response.status(201).json(user.toJSON())
+      return response.status(201).json(user.toJSON())
 
-    // } catch (e) {
-    //   return response.status(204).json({ error: e.message })
-    // }
+    } catch (e) {
+      return response.status(204).json({ error: e.message })
+    }
   }
 
 
 
   async show({ request, response, params: { id } }) {
-    // const user = await User.find(id)
-    return response.json(request.authUser)
+    const user = await User.find(id)
+    // return response.json(request.authUser)s
 
     response.status(200).json([user.toJSON()])
   }
