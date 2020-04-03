@@ -56,15 +56,9 @@ class UserController {
 
 
 
-  async show({ auth, request, response, params: { id } }) {
+  async show({ auth, response, params: { id } }) {
     const user = auth.getUser()
-
-    if (!user) {
-      return response.status(404).json({
-        message: 'User not found',
-        id
-      })
-    }
+    console.log(user)
 
     return response.status(200).json({
       message: 'Here is your user',
