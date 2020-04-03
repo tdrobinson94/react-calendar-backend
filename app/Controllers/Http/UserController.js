@@ -56,7 +56,7 @@ class UserController {
 
 
 
-  async show({ auth, response, params }) {
+  async show({ auth, request, response, params }) {
     // const user = request.post().user
     const user = await request.auth.User
     // return response.json(request.authUser)
