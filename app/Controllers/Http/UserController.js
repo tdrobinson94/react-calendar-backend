@@ -43,6 +43,8 @@ class UserController {
         })
       } 
       let token = await auth.generate(user)
+
+      Object.assign(user, token)
       return response.status(201).json(user.toJSON())
 
     } catch (e) {
