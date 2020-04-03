@@ -30,31 +30,14 @@ class UserController {
   }
 
   async login ({ request, response, auth, params: { id } }) {
-    const input = request.only('username', 'password')
     const username = request.input('username')
     const password = request.input('password')
-
-    // try {
-    //   if (await auth.attempt(username, password)) {
-    //     const user = await User.findBy('username', username)
-    //     let token = await auth.generate(user)
-    //     console.log(token)
-    //     return response.status(201).json(user.toJSON())
-    //   }
-    // } catch(e) {
-    //   console.log(e)
-    //   return response.status(204).json({message: 'You are not registered!'})
-    // }
 
     try {
       const user = await User.findBy('username', username)
       const verify = await Hash.verify(password, user.password)
 
-     if (!verify) {
-        return response.json({
-          message: 'Could not verify user',
-        })
-      } 
+     if (!verify) { throw new Error('Password is Incorrect')} 
       let token = await auth.generate(user)
       return response.status(201).json(user.toJSON())
 
