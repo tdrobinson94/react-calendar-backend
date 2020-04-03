@@ -55,13 +55,13 @@ class UserController {
 
 
 
-  async show({ params, response }) {
-    const user = await User.find(params.id)
+  async show({ request, response }) {
+    const user = user.post().user
 
-    return response.json({
+    return response.json([{
       message: 'Here is your user',
       data: user
-    })
+    }])
   }
 
   async update ({ request, response, params: { id } }) {
