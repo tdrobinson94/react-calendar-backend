@@ -56,7 +56,7 @@ class UserController {
 
 
   async show({ auth, response }) {
-    const user = await auth.getUser()
+    const user = auth.current.user
 
     return response.status(200).json({
       message: 'Here is your user',
