@@ -35,9 +35,9 @@ class UserController {
     try {
       if (await auth.attempt(input)) {
         const user = await User.findBy('username', input.username)
-        let token = await auth.generate(user)
 
-        return response.json(user.toJSON())
+        return response.status(201).json(user.toJSON())
+        let token = await auth.generate(user)
       }
     } catch(e) {
       console.log(e)
