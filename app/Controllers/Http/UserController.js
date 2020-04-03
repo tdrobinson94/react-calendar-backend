@@ -61,7 +61,7 @@ class UserController {
     const user = await User.find(id)
     // return response.json(request.authUser)
 
-    return response.json(user.toJSON())
+    return response.json([user.toJSON()])
   }
 
   async update ({ request, response, params: { id } }) {
