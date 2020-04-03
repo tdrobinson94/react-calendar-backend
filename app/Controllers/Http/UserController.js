@@ -55,8 +55,13 @@ class UserController {
 
 
 
-  async show({ params, response }) {
-    const user = await auth.User
+  async show({ params, auth, response }) {
+    // const user = await auth.user.params.id
+    if (auth.User.id !== Number(params.id)) {
+      return response.json({
+        message: 'You are not able to another user'
+      })
+    }
 
     return response.status(200).json({
       message: 'Here is your user',
