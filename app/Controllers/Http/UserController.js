@@ -52,38 +52,14 @@ class UserController {
         message: 'Incorrect username',
       })
     }
-
-    // try {
-    //   // validate the user credentials and generate a JWT token
-    //   const token = await auth.attempt(
-    //     request.input('username'),
-    //     request.input('password')
-    //   )
-    //   Object.assign(user, token)
-
-    //   return response.json({
-    //     status: 'success',
-    //     data: user
-    //   })
-    // } catch (error) {
-    //   response.status(400).json({
-    //     status: 'error',
-    //     message: 'Invalid username/password'
-    //   })
-    // }
   }
 
 
 
-  async show({ auth, request, response, params }) {
-    // const user = request.post().user
-    // const user = await User.find(id)
-    // if (auth.user.id !== Number(params.id)) {
-    //   return 'You cannot see someone else\'s profile'
-    // }
-    // return auth.user
+  async show({ request, auth, response }) {
+    const user = auth.current.user
 
-    // return response.json(user)
+    return response.json(user.toJSON());
   }
 
   async update ({ request, response, params: { id } }) {
