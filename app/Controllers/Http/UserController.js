@@ -30,8 +30,6 @@ class UserController {
   }
 
   async login ({ request, response, auth, params: { id } }) {
-    // const username = request.input('username')
-    // const password = request.input('password')
     const { username, password } = request.only(['username', 'password'])
 
     try {
@@ -57,9 +55,8 @@ class UserController {
 
 
 
-  async show({ auth, response, params: { id } }) {
-    const user = auth.user.id
-    console.log(user)
+  async show({ params, response }) {
+    const user = await User.find(params.id)
 
     return response.status(200).json({
       message: 'Here is your user',
