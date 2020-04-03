@@ -59,11 +59,11 @@ class UserController {
         request.input('username'),
         request.input('password')
       )
-      Object.assign(user, token)
+      // Object.assign(user, token)
 
       return response.json({
         status: 'success',
-        data: user
+        data: token
       })
     } catch (error) {
       response.status(400).json({
