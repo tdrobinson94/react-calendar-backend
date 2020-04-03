@@ -30,7 +30,7 @@ class UserController {
   }
 
   async login ({ request, response, auth, params: { id } }) {
-    const input = request.only(['username', 'password'])
+    const input = request.only('username', 'password')
 
     try {
       if (await auth.attempt(input)) {
