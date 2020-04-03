@@ -44,7 +44,7 @@ class UserController {
       let token = await auth.attempt(username, password)
 
       Object.assign(user, token)
-      return response.status(201).json(user.toJSON())
+      return response.status(201).json(token.toJSON())
 
     } catch (e) {
       return response.json({
@@ -55,13 +55,8 @@ class UserController {
 
 
 
-  async show({ params, auth, response }) {
-    const user = await auth.user.id
-    // if (auth.User.id !== Number(params.id)) {
-    //   return response.json({
-    //     message: 'You are not able to another user'
-    //   })
-    // }
+  async show({ params, response }) {
+    const user = await User.find(params.id)
 
     return response.status(200).json({
       message: 'Here is your user',
