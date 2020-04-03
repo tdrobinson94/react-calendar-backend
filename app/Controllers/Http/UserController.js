@@ -56,7 +56,7 @@ class UserController {
 
 
   async show({ request, response }) {
-    const user = user.post().user
+    const user = request.post().user
 
     return response.json([{
       message: 'Here is your user',
