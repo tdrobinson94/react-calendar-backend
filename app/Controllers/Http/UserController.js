@@ -34,17 +34,17 @@ class UserController {
     // const username = request.input('username')
     // const password = request.input('password')
 
-    try {
-      if (await auth.attempt(username, password)) {
-        const user = await User.findBy('username', input.username)
-        let token = await auth.generate(user)
-        console.log(token)
-        return response.status(201).json(user.toJSON())
-      }
-    } catch(e) {
-      console.log(e)
-      return response.status(204).json({message: 'You are not registered!'})
-    }
+    // try {
+    //   if (await auth.attempt(username, password)) {
+    //     const user = await User.findBy('username', input.username)
+    //     let token = await auth.generate(user)
+    //     console.log(token)
+    //     return response.status(201).json(user.toJSON())
+    //   }
+    // } catch(e) {
+    //   console.log(e)
+    //   return response.status(204).json({message: 'You are not registered!'})
+    // }
 
     try {
       const user = await User.findBy('username', input.username)
