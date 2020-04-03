@@ -11,7 +11,7 @@ class UserController {
     response.status(200).json(users.toJSON())
   }
 
-  async store ({ request, auth, response, params: { id } }) {
+  async store ({ request, auth, response }) {
     const input = request.only(['firstname', 'lastname', 'username', 'email', 'password'])
 
     input.password = await Hash.make(input.password)
@@ -29,7 +29,7 @@ class UserController {
     }
   }
 
-  async login ({ request, response, auth, params: { id } }) {
+  async login ({ request, response, auth ) {
     const { username, password } = request.only(['username', 'password'])
 
     try {
