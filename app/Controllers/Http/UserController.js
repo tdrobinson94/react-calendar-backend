@@ -46,7 +46,7 @@ class UserController {
       return response.status(201).json(user.toJSON())
 
     } catch (e) {
-      return response.status(204).json({
+      return response.json({
         message: 'Incorrect username',
       })
     }
