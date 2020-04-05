@@ -3,6 +3,7 @@
 const Validator = use('Validator')
 const User = use('App/Models/User')
 const Hash = use('Hash')
+const Mail = use('Mail')
 
 class UserController {
   async index ({ request, response}) {
@@ -24,6 +25,14 @@ class UserController {
       return response.status(422).json(validation.messages())
     } else {
       const newUser = await User.create(input)
+
+      await Mail.send('auth.emails.confirm_email', newUser.toJSON(), (message) => {
+        message
+          .to(newUser.email, newUser.firstname)
+          .from('team@angularcalapp.io', 'AngularCal')
+          .subject('Please confirm your eail address')
+          .text('Registration successful! Please confirm your email address.')
+      })
 
       response.status(201).json(newUser.toJSON())
     }
