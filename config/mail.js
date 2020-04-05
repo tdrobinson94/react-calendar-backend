@@ -25,12 +25,12 @@ module.exports = {
   smtp: {
     driver: 'smtp',
     pool: true,
-    port: Env.get('SMTP_PORT', 2525),
-    host: Env.get('SMTP_HOST'),
+    port: Env.get(587),
+    host: Env.get('smtp.gmail.com'),
     secure: false,
     auth: {
-      user: Env.get('MAIL_USERNAME'),
-      pass: Env.get('MAIL_PASSWORD')
+      user: Env.get('angular.mycalapp@gmail.com'),
+      pass: Env.get('Jasmine12#')
     },
     maxConnections: 5,
     maxMessages: 100,
