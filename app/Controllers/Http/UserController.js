@@ -68,7 +68,7 @@ class UserController {
   }
 
   async update ({ request, response, params: { id } }) {
-    const user = request.post().user
+    const user = await auth.getUser()
     const { firstname, lastname, username, password } = request.post()
 
     user.firstname = firstname

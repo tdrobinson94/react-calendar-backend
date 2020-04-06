@@ -22,7 +22,7 @@ Route.get('/', () => {
 Route.post('/signup', 'UserController.store')
 Route.get('/users', 'UserController.index')
 Route.get('/user', 'UserController.show').middleware('auth')
-Route.patch('/updateuser/:id', 'UserController.update').middleware(['FindUser'])
+Route.patch('/updateuser', 'UserController.update').middleware('auth')
 Route.delete('/deleteuser', 'UserController.destroy').middleware('auth')
 
 Route.post('/login', 'UserController.login')
