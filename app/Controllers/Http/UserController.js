@@ -88,6 +88,15 @@ class UserController {
     const userID = await auth.getUser().id
     const user = await User.find(userID)
 
+    if (!user) {
+      return response.status(404).json({
+        message: 'User not found',
+        id
+      })
+    }
+
+    request.body.user = user
+
 
     await user.delete()
 
