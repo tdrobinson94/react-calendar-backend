@@ -85,10 +85,9 @@ class UserController {
   }
 
   async destroy ({ request, auth, response, params: { id } }) {
-    const input = request.only('id')
-    input.user_id = await auth.getUser().id
+    const input = await auth.getUser().id
 
-    const user = await User.findBy('id', request.param('id'))
+    const user = await User.findBy('id', input)
 
     await user.delete()
 
