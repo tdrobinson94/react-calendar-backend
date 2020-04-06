@@ -67,7 +67,7 @@ class UserController {
     return await auth.getUser()
   }
 
-  async update ({ request, response, params: { id } }) {
+  async update ({ auth, request, response, params: { id } }) {
     const user = await auth.getUser()
     const { firstname, lastname, username, password } = request.post()
 
