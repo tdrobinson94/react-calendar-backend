@@ -85,7 +85,8 @@ class UserController {
   }
 
   async destroy ({ request, response, params: { id } }) {
-    const user = request.post().user
+    const userID = await auth.getUser().id
+    const user = await User.find(userID)
 
 
     await user.delete()
