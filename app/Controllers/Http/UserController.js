@@ -27,13 +27,13 @@ class UserController {
     } else {
       const newUser = await User.create(input)
 
-      response.status(201).json(newUser.toJSON())
-
       await Mail.raw('Registration successful! Please confirm your email address.', newUser.toJSON(), (message) => {
         message.subject('Please confirm your eail address')
         message.from('angular.mycalapp@gmail.com', 'AngularCal')
         message.to(newUser.email, newUser.firstname)
       })
+
+      response.status(201).json(newUser.toJSON())
     }
   }
 
