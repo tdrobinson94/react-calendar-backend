@@ -52,7 +52,7 @@ class UserController {
       let token = await auth.attempt(username, password)
 
       Object.assign(user, token)
-      return response.status(201).json(user.toJSON())
+      return response.status(201).json(user.token.toJSON())
 
     } catch (e) {
       return response.json({
