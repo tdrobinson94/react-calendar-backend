@@ -2,8 +2,9 @@
 
 const Validator = use('Validator')
 const User = use('App/Models/User')
-const Hash = use('Hash')
 const Mail = use('Mail')
+const Hash = use('Hash')
+
 
 class UserController {
   async index ({ request, response}) {
