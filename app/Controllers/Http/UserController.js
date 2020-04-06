@@ -85,18 +85,7 @@ class UserController {
   }
 
   async destroy ({ auth, request, response, params: { id } }) {
-    const userID = await auth.getUser().id
-    const user = await User.find(userID)
-
-    if (!user) {
-      return response.status(404).json({
-        message: 'User not found',
-        id
-      })
-    }
-
-    request.body.user = user
-
+    const user = await auth.getUser()
 
     await user.delete()
 
