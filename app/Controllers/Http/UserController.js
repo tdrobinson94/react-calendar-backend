@@ -65,6 +65,8 @@ class UserController {
 
   async show({ params, response }) {
     const user = await User.find(params.id)
+    const getUser = await auth.listTokens();
+    console.log(getUser)
 
     response.status(200).json([user.toJSON()])
   }
@@ -88,6 +90,7 @@ class UserController {
 
   async destroy ({ request, response, params: { id } }) {
     const user = request.post().user
+
 
     await user.delete()
 
