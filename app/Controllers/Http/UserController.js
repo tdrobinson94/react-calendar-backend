@@ -13,7 +13,7 @@ class UserController {
     response.status(200).json(users.toJSON())
   }
 
-  async store ({ request, auth, response }) {
+  async store ({ request, response }) {
     const input = request.only(['firstname', 'lastname', 'username', 'email', 'password'])
 
     input.password = await Hash.make(input.password)
@@ -27,13 +27,13 @@ class UserController {
     } else {
       const newUser = await User.create(input)
 
-      // await Mail.raw('Registration successful! Please confirm your email address.', newUser.toJSON(), (message) => {
-      //   message.subject('Please confirm your eail address')
-      //   message.from('angular.mycalapp@gmail.com', 'AngularCal')
-      //   message.to(newUser.email, newUser.firstname)
-      // })
+      await Mail.raw('Registration successful! Please confirm your email address.', newUser.toJSON(), (message) => {
+        message.subject('Please confirm your eail address')
+        message.from('angular.mycalapp@gmail.com', 'AngularCal')
+        message.to(newUser.email, newUser.firstname)
+      })
 
-      response.status(201).json(newUser.toJSON())
+      return response.status(201).json(newUser.toJSON())
     }
   }
 
