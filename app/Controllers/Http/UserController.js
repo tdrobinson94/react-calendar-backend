@@ -71,11 +71,13 @@ class UserController {
     const user = await auth.getUser()
     const { firstname, lastname, username, password } = request.post()
 
+    password = await Hash.make(password)
+
     user.firstname = firstname
     user.lastname = lastname
     user.username = username
     user.password = password
-
+    
     await user.save()
 
     response.status(200).json({
