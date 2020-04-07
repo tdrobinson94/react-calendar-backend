@@ -33,7 +33,8 @@ class UserController {
         message.to(newUser.email, newUser.firstname)
       })
 
-      return response.status(201).json(newUser.toJSON())
+      // return response.status(201).json(newUser.toJSON())
+      return 'Registered successfully'
     }
   }
 
