@@ -9,7 +9,7 @@ class EventController {
     response.status(200).json(events.toJSON())
   }
 
-  async store({ auth, response }) {
+  async store({ auth, request, response }) {
     const input = request.only(['item_type', 'title', 'frequency', 'description', 'start_date', 'end_date', 'start_time', 'end_time', 'location'])
 
     input.user_id = auth.user.id
