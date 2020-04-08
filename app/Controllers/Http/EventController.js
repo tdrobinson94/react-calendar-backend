@@ -30,12 +30,9 @@ class EventController {
 
   }
 
-  async destroy({ auth, request, response, params: { id } }) {
+  async destroy({ request, response, params }) {
     const input = request.only('id')
-
-    input.user_id = auth.user.id
-    events = await Event.query().where('user_id', input.user_id)
-    const event = await events.findBy('id', request.param('id'));
+    const event = await Event.findBy('id', input);
 
     await event.delete();
 
