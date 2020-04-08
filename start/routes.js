@@ -24,5 +24,8 @@ Route.get('/users', 'UserController.index')
 Route.get('/user', 'UserController.show').middleware('auth')
 Route.patch('/updateuser', 'UserController.update').middleware('auth')
 Route.delete('/deleteuser', 'UserController.destroy').middleware('auth')
+Route.post('/event', 'EventController.store').middleware('auth')
+Route.get('/user/events', 'EventController.index').middleware('auth')
+Route.delete('/event/:id', 'EventController.destroy').middleware('auth')
 
 Route.post('/login', 'UserController.login')

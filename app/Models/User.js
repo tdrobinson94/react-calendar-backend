@@ -6,7 +6,6 @@ const Model = use('Model')
 class User extends Model {
   static boot () {
     super.boot()
-
   }
 
   static get hidden() {
@@ -33,6 +32,10 @@ class User extends Model {
    */
   tokens () {
     return this.hasMany('App/Models/Token')
+  }
+
+  events () {
+    return this.hasMany('App/Model/Event')
   }
 }
 
