@@ -69,7 +69,7 @@ class UserController {
   }
 
   async showId({ auth }) {
-    return await auth.user
+    return await auth.user.id
   }
 
   async update ({ auth, request, response, params: { id } }) {
