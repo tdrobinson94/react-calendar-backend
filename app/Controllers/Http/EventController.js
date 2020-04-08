@@ -21,8 +21,12 @@ class EventController {
     return response.json(newEvent.toJSON())
   }
 
-  async show({ auth }) {
+  async show({ request, response }) {
+    const input = request.only('id')
 
+    const event = await Event.findBy('id', input.id);
+
+    return response.json(event.toJSON())
   }
 
   async update({ auth, request, response, params: { id } }) {
