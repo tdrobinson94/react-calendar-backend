@@ -1,5 +1,7 @@
 'use strict'
 
+const Event = use('App/Models/Event')
+
 class EventController {
   async index({ request, response }) {
     const input = request.only('user_id')
