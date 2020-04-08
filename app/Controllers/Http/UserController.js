@@ -68,6 +68,10 @@ class UserController {
     return await auth.getUser()
   }
 
+  async showId({ auth }) {
+    return await auth.getUser().id
+  }
+
   async update ({ auth, request, response, params: { id } }) {
     const user = await auth.getUser()
     const { firstname, lastname, username, password } = request.post()
