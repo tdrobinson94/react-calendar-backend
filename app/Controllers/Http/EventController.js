@@ -22,7 +22,7 @@ class EventController {
   }
 
   async show({ auth }) {
-    
+
   }
 
   async update({ auth, request, response, params: { id } }) {
@@ -35,7 +35,7 @@ class EventController {
 
     input.user_id = auth.user.id
 
-    const event = await Event.findBy('id', request.param('id'));
+    const event = await Event.findBy('id', input.id);
 
     await event.delete();
 
