@@ -20,6 +20,7 @@ class EventController {
     const input = request.only(['item_type', 'title', 'frequency', 'description', 'start_date', 'end_date', 'start_time', 'end_time', 'location'])
 
     const theUser = auth.loginViaId(1)
+    console.log(thUser)
     input.user_id = theUser
 
     const newEvent = await Event.create(input)
