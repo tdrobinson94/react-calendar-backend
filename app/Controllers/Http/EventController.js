@@ -22,7 +22,7 @@ class EventController {
   }
 
   async show({ auth }) {
-    return await auth.user.id
+    
   }
 
   async update({ auth, request, response, params: { id } }) {
@@ -30,9 +30,12 @@ class EventController {
 
   }
 
-  async destroy({ request, response, params }) {
+  async destroy({ auth, request, response, params: { id } }) {
     const input = request.only('id')
-    const event = await Event.findBy('id', input);
+
+    input.user_id = auth.user.id
+
+    const event = await Event.findBy('id', request.param('id'));
 
     await event.delete();
 
