@@ -11,10 +11,8 @@ class EventController {
 
   async store({ auth, response }) {
     const input = request.only(['item_type', 'title', 'frequency', 'description', 'start_date', 'end_date', 'start_time', 'end_time', 'location'])
-
-    const theUser = Object.values(auth.getUser())
-    console.log(thUser)
-    input.user_id = theUser[1]
+    
+    input.user_id = auth.user.id
 
     const newEvent = await Event.create(input)
 
