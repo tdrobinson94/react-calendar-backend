@@ -28,5 +28,5 @@ Route.delete('/deleteuser', 'UserController.destroy').middleware('auth')
 Route.post('/event', 'EventController.store').middleware('auth')
 Route.get('/user/events', 'EventController.index').middleware('auth')
 Route.delete('/event/:id', 'EventController.destroy').middleware('auth')
-
+Route.get('/user/event', 'EventController.show').middleware('auth')
 Route.post('/login', 'UserController.login')
