@@ -1,12 +1,5 @@
 'use strict'
 
-/** @typedef {import('@adonisjs/framework/src/Request')} Request */
-/** @typedef {import('@adonisjs/framework/src/Response')} Response */
-/** @typedef {import('@adonisjs/framework/src/View')} View */
-
-/**
- * Resourceful controller for interacting with events
- */
 class EventController {
   async index({ request, response }) {
     const input = request.only('user_id')
@@ -19,9 +12,9 @@ class EventController {
   async store({ auth, response }) {
     const input = request.only(['item_type', 'title', 'frequency', 'description', 'start_date', 'end_date', 'start_time', 'end_time', 'location'])
 
-    const theUser = auth.loginViaId(1)
+    const theUser = Object.values(auth.getUser())
     console.log(thUser)
-    input.user_id = theUser
+    input.user_id = theUser[1]
 
     const newEvent = await Event.create(input)
 
