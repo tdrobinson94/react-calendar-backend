@@ -11,7 +11,7 @@ class EventController {
 
   async store({ auth, response }) {
     const input = request.only(['item_type', 'title', 'frequency', 'description', 'start_date', 'end_date', 'start_time', 'end_time', 'location'])
-    
+
     input.user_id = auth.user.id
 
     const newEvent = await Event.create(input)
@@ -20,7 +20,7 @@ class EventController {
   }
 
   async show({ auth }) {
-    
+    return await auth.user.id
   }
 
   async update({ auth, request, response, params: { id } }) {
@@ -31,7 +31,7 @@ class EventController {
   async destroy({ auth, request, response, params: { id } }) {
     const input = request.only('id')
 
-    input.user_id = auth.getUser().id
+    input.user_id = auth.user.id
 
     const event = await Event.findBy('id', request.param('id'));
 
