@@ -39,7 +39,7 @@ class EventController {
 
     input.user_id = auth.user.id
     
-    const event = Event.query().where('id', input.id).fetch()
+    const event = Event.query().where('id', input.id)
     // const event = await Event.findBy('id', input.id)
     console.log(input)
     console.log(event)
