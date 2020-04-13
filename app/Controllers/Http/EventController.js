@@ -35,7 +35,7 @@ class EventController {
   }
 
   async destroy({ auth, request, response, params: { id } }) {
-    const input = request.only('id')
+    // const input = request.only('id')
 
     input.user_id = auth.user.id
     
