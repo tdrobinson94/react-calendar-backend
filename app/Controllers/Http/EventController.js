@@ -39,10 +39,12 @@ class EventController {
 
     input.user_id = auth.user.id
     
-    events = Event.query().where('user_id', input.user_id).fetch()
-    const event = await events.findBy('id', input.id);
+    // events = Event.query().where('user_id', input.user_id).fetch()
+    const event = await Event.findBy('id', input.id);
+    console.log(input)
+    console.log(event)
 
-    await event.delete();
+    await event.delete()
 
     response.json({
       message: 'Successfully deleted this event',
