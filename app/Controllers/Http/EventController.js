@@ -39,7 +39,7 @@ class EventController {
 
     input.user_id = auth.user.id
     
-    const event = await Event.findBy('id', request.param('id'))
+    const event = await Event.findBy('id', input)
 
     await event.delete()
 
