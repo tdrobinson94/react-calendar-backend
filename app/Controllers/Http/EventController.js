@@ -40,7 +40,7 @@ class EventController {
     input.user_id = auth.user.id
     
     // const events = await Event.query().where('user_id', input.id).fetch()
-    const event = await Event.find(params.id)
+    const event = await Event.find(input.id)
 
     await event.delete()
 
