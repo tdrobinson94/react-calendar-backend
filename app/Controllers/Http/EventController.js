@@ -47,8 +47,7 @@ class EventController {
 
     response.json({
       message: 'Successfully deleted this event',
-      input,
-      id
+      input
     })
 
   }
