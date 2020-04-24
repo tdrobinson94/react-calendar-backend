@@ -43,7 +43,7 @@ class EventController {
     const event = await Event.query().where({
       id: eventID,
       user_id: userID
-    })
+    }).fetch()
 
     await event.delete()
 
