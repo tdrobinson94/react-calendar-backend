@@ -38,8 +38,8 @@ class EventController {
     const input = request.only('id')
 
     // ssss
-    const event = await Event.findBy('id', input.id)
-    // const event = await Event.query().where('id', input.id)
+    // const event = await Event.findBy('id', input.id)
+    const event = await Event.query().where('id', input.id).limit(1)
 
     await event.delete()
 
