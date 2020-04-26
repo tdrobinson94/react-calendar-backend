@@ -20,6 +20,7 @@ Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
 Route.post('/signup', 'UserController.store')
+Route.post('/login', 'UserController.login')
 Route.get('/users', 'UserController.index')
 Route.get('/user', 'UserController.show').middleware('auth')
 Route.get('/userid', 'UserController.showId').middleware('auth')
@@ -29,4 +30,4 @@ Route.post('/event', 'EventController.store').middleware('auth')
 Route.get('/user/events', 'EventController.index')
 Route.get('/user/event/:id', 'EventController.show')
 Route.delete('/delete/event/:id', 'EventController.destroy')
-Route.post('/login', 'UserController.login')
+Route.post('/update/event/:id', 'EventController.update')

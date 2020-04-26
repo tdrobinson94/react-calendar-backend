@@ -29,17 +29,33 @@ class EventController {
     return response.json(event.toJSON())
   }
 
-  async update({ auth, request, response, params: { id } }) {
+  async update({ request, response, params: { id } }) {
+    const input = request.only('id')
+    const event = await Event.findBy('id', input.id)
+    const { title, frequency, description, start_date, end_date, start_time, end_time, location } = request.post()
 
+    event.title = title
+    event.frequency = frequency
+    event.description = description
+    event.start_date = start_date
+    event.end_date = end_date
+    event.start_time = start_time
+    event.end_time = end_time
+    event.location = location
+
+    await event.save()
+
+    response.status(200).json({
+      message: 'Successfully updated an event',
+      data: event
+    })
 
   }
 
-  async destroy({ request, response, params }) {
+  async destroy({ request, response }) {
     const input = request.only('id')
 
-    // ssss
     const event = await Event.findBy('id', input.id)
-    // const event = await Event.query().where('id', input.id).limit(1)
 
     await event.delete()
 
