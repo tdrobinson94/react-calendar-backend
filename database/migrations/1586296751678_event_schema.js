@@ -17,6 +17,7 @@ class EventSchema extends Schema {
       table.time('start_time')
       table.time('end_time')
       table.string('location')
+      table.integer('group_id')
       table.timestamps()
     })
   }
