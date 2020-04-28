@@ -21,7 +21,7 @@ class EventController {
     return response.json(newEvent.toJSON())
   }
 
-  async storeMultiple({ auth, request, response }) {
+  async store_multiple({ auth, request, response }) {
     const input = request.only(['item_type', 'title', 'frequency', 'description', 'start_date', 'end_date', 'start_time', 'end_time', 'location'])
 
     input.user_id = auth.user.id
