@@ -29,7 +29,7 @@ class EventController {
 
     const newEvent = await Event.createMany(input)
 
-    return response.json(newEvent.toJSON())
+    return response.json(newEvent)
   }
 
   async show({ request, response }) {
