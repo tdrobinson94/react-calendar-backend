@@ -29,7 +29,10 @@ class EventController {
 
     const newEvent = await Event.createMany(input)
 
-    return response.json(newEvent)
+    response.status(200).json({
+      message: 'Successfully created a group of events',
+      data: newEvent
+    })
   }
 
   async show({ request, response }) {
