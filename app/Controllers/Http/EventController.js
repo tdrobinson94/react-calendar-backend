@@ -25,14 +25,11 @@ class EventController {
     const input = request.collect(['item_type', 'title', 'frequency', 'description', 'start_date', 'end_date', 'start_time', 'end_time', 'location'])
 
     input.user_id = auth.user.id
-    input.group_id += 1
+    // input.group_id += 1
 
     const newEvent = await Event.createMany(input)
 
-    response.status(200).json({
-      message: 'Successfully created a group of events',
-      data: newEvent
-    })
+    return response.json(newEvent.toJSON())
   }
 
   async show({ request, response }) {
