@@ -27,7 +27,7 @@ class EventController {
     input.user_id = auth.user.id
     input.group_id += 1
 
-    const newEvent = await Event.createMany(input["input"])
+    const newEvent = await Event.createMany(input)
 
     return response.json(newEvent.toJSON())
   }
