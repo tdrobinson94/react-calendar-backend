@@ -22,7 +22,7 @@ class EventController {
   }
 
   async store_multiple({ auth, request, response }) {
-    const input = request.collect('events')
+    const input = request.input('events')
 
     input.user_id = auth.user.id
     input.group_id += 1
