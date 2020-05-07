@@ -22,10 +22,7 @@ class EventController {
   }
 
   async store_multiple({ auth, request, response }) {
-    const input = request.collect(['user_id', 'item_type', 'title', 'frequency', 'description', 'start_date', 'end_date', 'start_time', 'end_time', 'location'])
-
-    input.user_id = auth.user.id
-    input.group_id += 1
+    const input = request.collect(['user_id', 'group_id', 'item_type', 'title', 'frequency', 'description', 'start_date', 'end_date', 'start_time', 'end_time', 'location'])
 
     const newEvent = await Event.createMany(input)
 
