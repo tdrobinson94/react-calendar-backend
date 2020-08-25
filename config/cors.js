@@ -17,7 +17,7 @@ module.exports = {
   |
   */
   origin: function (currentOrigin) {
-    return currentOrigin === 'http://localhost:4200/' || 'https://tdrobinson94.github.io/my-cal-app-angular/#'
+    return currentOrigin === 'http://localhost:4200/' || 'https://tdrobinson94.github.io/my-cal-app-angular/#' || 'https://tdrobinson94.github.io/Cal_App_t1a_8_24_20/my-forecast-app/'
   },
 
   /*
