@@ -72,9 +72,9 @@ class EventController {
       event.start_time = start_time
       event.end_time = end_time
       event.location = location
-    }
 
-    await event.save()
+      await event.save()
+    }
 
     response.status(200).json({
       message: 'Successfully updated an event',
