@@ -12,13 +12,32 @@ class EventController {
   }
 
   async store({ auth, request, response }) {
-    const input = request.only(['group_id', 'item_type', 'title', 'frequency', 'description', 'start_date', 'end_date', 'start_time', 'end_time', 'location'])
+    const input = request.post(['group_id', 'item_type', 'title', 'frequency', 'description', 'start_date', 'end_date', 'start_time', 'end_time', 'location'])
 
     input.user_id = auth.user.id
+    input.end_date = moment(input.end_date).add(1, 'days')
 
-    const newEvent = await Event.create(input)
+    for (var forecast_date = moment(input.start_date); forecast_date.isBefore(input.end_date); forecast_date.add(input.frequency, 'days')) {
+      console.log(forecast_date.format('YYYY-MM-DD'))
 
-    return response.json(newEvent.toJSON())
+      const date = forecast_date.format('YYYY-MM-DD') 
+
+      var newEvent = await Event.create({
+        user_id: auth.user.id,
+        group_id: input.group_id,
+        item_type: input.item_type,
+        title: input.title,
+        frequency: input.frequency,
+        description: input.description,
+        start_date: date,
+        end_date: date,
+        start_time: input.start_time,
+        end_time: input.end_time,
+        location: input.location
+      })
+
+      return response.json(newEvent.toJSON())
+    }
   }
 
   async store_multiple({ auth, request, response }) {
