@@ -21,8 +21,6 @@ class EventController {
     for (var forecast_date = moment(input.start_date); forecast_date.isBefore(input.end_date); forecast_date.add(input.frequency, 'days')) {
       console.log(forecast_date.format('YYYY-MM-DD'))
 
-      const date = forecast_date.format('YYYY-MM-DD') 
-
       var newEvent = await Event.create({
         user_id: auth.user.id,
         group_id: input.group_id,
@@ -30,15 +28,14 @@ class EventController {
         title: input.title,
         frequency: input.frequency,
         description: input.description,
-        start_date: date,
-        end_date: date,
+        start_date: forecast_date.format('YYYY-MM-DD'),
+        end_date: forecast_date.format('YYYY-MM-DD'),
         start_time: input.start_time,
         end_time: input.end_time,
         location: input.location
       })
-
-      return response.json(newEvent.toJSON())
     }
+    return response.json(newEvent.toJSON())
   }
 
   async store_multiple({ auth, request, response }) {
