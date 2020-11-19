@@ -1,6 +1,7 @@
 'use strict'
 
 const Event = use('App/Models/Event')
+const moment = require('moment')
 
 class EventController {
   async index({ request, response }) {
