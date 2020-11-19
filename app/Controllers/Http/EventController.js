@@ -59,7 +59,7 @@ class EventController {
     const event = await Event.findBy('id', input.id)
     const { title, frequency, description, start_date, end_date, start_time, end_time, location } = request.post()
 
-    endDate = moment(end_date).add(1, 'days')
+    const endDate = moment(end_date).add(1, 'days')
 
     for (var forecast_date = moment(start_date); forecast_date.isBefore(endDate); forecast_date.add(frequency, 'days')) {
       console.log(forecast_date.format('YYYY-MM-DD'))
