@@ -58,7 +58,7 @@ class EventController {
     const input = request.only('id')
     const event = await Event.findBy('id', input.id)
     const { title, frequency, description, start_date, end_date, start_time, end_time, location } = request.post()
-
+    
     event.title = title
     event.frequency = frequency
     event.description = description
