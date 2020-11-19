@@ -59,22 +59,16 @@ class EventController {
     const event = await Event.findBy('id', input.id)
     const { title, frequency, description, start_date, end_date, start_time, end_time, location } = request.post()
 
-    const endDate = moment(end_date).add(1, 'days')
+    event.title = title
+    event.frequency = frequency
+    event.description = description
+    event.start_date = start_date
+    event.end_date = end_date
+    event.start_time = start_time
+    event.end_time = end_time
+    event.location = location
 
-    for (var forecast_date = moment(start_date); forecast_date.isBefore(endDate); forecast_date.add(frequency, 'days')) {
-      console.log(forecast_date.format('YYYY-MM-DD'))
-
-      event.title = title
-      event.frequency = frequency
-      event.description = description
-      event.start_date = forecast_date.format('YYYY-MM-DD')
-      event.end_date = forecast_date.format('YYYY-MM-DD')
-      event.start_time = start_time
-      event.end_time = end_time
-      event.location = location
-
-      await event.save()
-    }
+    await event.save()
 
     response.status(200).json({
       message: 'Successfully updated an event',
