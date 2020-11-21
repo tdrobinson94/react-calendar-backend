@@ -2,7 +2,6 @@
 
 const Event = use('App/Models/Event')
 const moment = require('moment')
-const uuidv4 = require("uuid/v4")
 
 class EventController {
   async index({ request, response }) {
@@ -19,30 +18,24 @@ class EventController {
     input.user_id = auth.user.id
     input.end_date = moment(input.end_date).add(1, 'days')
 
-    if (input.frequency === 2) {
-      input.group_id = null;
-      const newEvent = await Event.create(input)
-      return response.json(newEvent.toJSON())
-    } else {
-      for (var forecast_date = moment(input.start_date); forecast_date.isBefore(input.end_date); forecast_date.add(input.frequency, 'days')) {
-        console.log(forecast_date.format('YYYY-MM-DD'))
+    for (var forecast_date = moment(input.start_date); forecast_date.isBefore(input.end_date); forecast_date.add(input.frequency, 'days')) {
+      console.log(forecast_date.format('YYYY-MM-DD'))
 
-        var newEvent = await Event.create({
-          user_id: auth.user.id,
-          group_id: input.group_id,
-          item_type: input.item_type,
-          title: input.title,
-          frequency: input.frequency,
-          description: input.description,
-          start_date: forecast_date.format('YYYY-MM-DD'),
-          end_date: forecast_date.format('YYYY-MM-DD'),
-          start_time: input.start_time,
-          end_time: input.end_time,
-          location: input.location
-        })
-      }
-      return response.json(newEvent.toJSON())
+      var newEvent = await Event.create({
+        user_id: auth.user.id,
+        group_id: input.group_id,
+        item_type: input.item_type,
+        title: input.title,
+        frequency: input.frequency,
+        description: input.description,
+        start_date: forecast_date.format('YYYY-MM-DD'),
+        end_date: forecast_date.format('YYYY-MM-DD'),
+        start_time: input.start_time,
+        end_time: input.end_time,
+        location: input.location
+      })
     }
+    return response.json(newEvent.toJSON())
   }
 
   async store_multiple({ auth, request, response }) {
@@ -65,7 +58,7 @@ class EventController {
     const input = request.only('id')
     const event = await Event.findBy('id', input.id)
     const { title, frequency, description, start_date, end_date, start_time, end_time, location } = request.post()
-
+    
     event.title = title
     event.frequency = frequency
     event.description = description
