@@ -17,14 +17,12 @@ class EventController {
 
     input.user_id = auth.user.id
     input.end_date = moment(input.end_date).add(1, 'days')
+    if (input.frequency != 2 || input.frequency !== 2) {
+      input.group_id = ((this.clock.getTime() + (Math.random() * 10000)) * 10000)
+    }
 
     for (var forecast_date = moment(input.start_date); forecast_date.isBefore(input.end_date); forecast_date.add(input.frequency, 'days')) {
       console.log(forecast_date.format('YYYY-MM-DD'))
-
-      if (input.frequency !== 2) {
-        input.group_id = ((this.clock.getTime() + (Math.random() * 10000)) * 10000);
-      }
-
       var newEvent = await Event.create({
         user_id: auth.user.id,
         group_id: input.group_id,
