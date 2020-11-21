@@ -91,7 +91,7 @@ class EventController {
   }
 
   async destroyGroup({ request, response }) {
-    const input = request.only('group_id')
+    const input = request.post('group_id')
 
     const events = await Event.findBy('group_id', input.group_id)
 
