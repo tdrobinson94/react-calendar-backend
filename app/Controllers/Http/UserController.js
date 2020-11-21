@@ -74,12 +74,12 @@ class UserController {
 
   async update ({ auth, request, response, params: { id } }) {
     const user = await auth.getUser()
-    const { firstname, lastname, username, password } = request.post()
+    const { firstname, lastname, username, /*password*/ } = request.post()
 
     user.firstname = firstname
     user.lastname = lastname
     user.username = username
-    user.password = await Hash.make(password)
+    /*user.password = await Hash.make(password)*/
     
     await user.save()
 
