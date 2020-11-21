@@ -89,6 +89,19 @@ class EventController {
     })
 
   }
+
+  async destroyGroup({ request, response }) {
+    const input = request.only('group_id')
+
+    const event = await Event.findBy('group_id', input.group_id)
+
+    await event.delete()
+
+    response.json({
+      message: 'Group was successfully deleted',
+      input
+    })
+  }
 }
 
 module.exports = EventController
