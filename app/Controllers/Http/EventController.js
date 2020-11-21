@@ -93,9 +93,7 @@ class EventController {
   async destroyGroup({ request, response }) {
     const input = request.only('id', 'group_id')
 
-    const event = await Event.findBy('id', input.id)
-
-    const group = await event.findBy('group_id', input.group_id)
+    const event = await Event.query().where('group_id', input.group_id)
 
     await event.delete()
 
