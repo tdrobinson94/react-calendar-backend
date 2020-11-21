@@ -23,8 +23,6 @@ class EventController {
 
       if (input.frequency !== 2) {
         input.group_id = ((this.clock.getTime() + (Math.random() * 10000)) * 10000);
-      } else {
-        input.group_id = null;
       }
 
       var newEvent = await Event.create({
