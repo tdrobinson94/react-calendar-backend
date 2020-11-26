@@ -18,22 +18,42 @@ class EventController {
     input.user_id = auth.user.id
     input.end_date = moment(input.end_date).add(1, 'days')
 
-    for (var forecast_date = moment(input.start_date); forecast_date.isBefore(input.end_date); forecast_date.add(input.frequency, 'days')) {
-      console.log(forecast_date.format('YYYY-MM-DD'))
-      var newEvent = await Event.create({
-        user_id: auth.user.id,
-        group_id: input.group_id,
-        item_type: input.item_type,
-        title: input.title,
-        frequency: input.frequency,
-        description: input.description,
-        start_date: forecast_date.format('YYYY-MM-DD'),
-        end_date: forecast_date.format('YYYY-MM-DD'),
-        start_time: input.start_time,
-        end_time: input.end_time,
-        location: input.location
-      })
+    if (input.frequency === 365) {
+      for (var forecast_date = moment(input.start_date); forecast_date.isBefore(input.end_date); forecast_date.add(1, 'years')) {
+        console.log(forecast_date.format('YYYY-MM-DD'))
+        var newEvent = await Event.create({
+          user_id: auth.user.id,
+          group_id: input.group_id,
+          item_type: input.item_type,
+          title: input.title,
+          frequency: input.frequency,
+          description: input.description,
+          start_date: forecast_date.format('YYYY-MM-DD'),
+          end_date: forecast_date.format('YYYY-MM-DD'),
+          start_time: input.start_time,
+          end_time: input.end_time,
+          location: input.location
+        })
+      }
+    } else {
+      for (var forecast_date = moment(input.start_date); forecast_date.isBefore(input.end_date); forecast_date.add(input.frequency, 'days')) {
+        console.log(forecast_date.format('YYYY-MM-DD'))
+        var newEvent = await Event.create({
+          user_id: auth.user.id,
+          group_id: input.group_id,
+          item_type: input.item_type,
+          title: input.title,
+          frequency: input.frequency,
+          description: input.description,
+          start_date: forecast_date.format('YYYY-MM-DD'),
+          end_date: forecast_date.format('YYYY-MM-DD'),
+          start_time: input.start_time,
+          end_time: input.end_time,
+          location: input.location
+        })
+      }
     }
+
     return response.json(newEvent.toJSON())
   }
 
