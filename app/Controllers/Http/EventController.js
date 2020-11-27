@@ -21,7 +21,7 @@ class EventController {
     let forecast_month = moment(input.start_date).format('M');
     let forecast_day = moment(input.start_date).format('D');
 
-    forecastStartDate = forecast_year.toString() + forecast_month.toString() + forecast_day.toString();
+    let forecastStartDate = forecast_year.toString() + forecast_month.toString() + forecast_day.toString();
 
     if (input.frequency === 365) {
       for (var forecast_date = moment(forecastStartDate); forecast_date.isBefore(input.end_date); forecast_year.add(1, 'years')) {
