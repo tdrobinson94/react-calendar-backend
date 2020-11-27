@@ -17,9 +17,14 @@ class EventController {
 
     input.user_id = auth.user.id
     input.end_date = moment(input.end_date).add(1, 'days')
+    let forecast_year = moment(input.start_date).format('Y');
+    let forecast_month = moment(input.start_date).format('M');
+    let forecast_day = moment(input.start_date).format('D');
+
+    forecastStartDate = forecast_year.toString() + forecast_month.toString() + forecast_day.toString();
 
     if (input.frequency === 365) {
-      for (var forecast_date = moment(input.start_date); forecast_date.isBefore(input.end_date); forecast_date.add(1, 'years')) {
+      for (var forecast_date = moment(forecastStartDate); forecast_date.isBefore(input.end_date); forecast_year.add(1, 'years')) {
         console.log(forecast_date.format('YYYY-MM-DD'))
         var newEvent = await Event.create({
           user_id: auth.user.id,
