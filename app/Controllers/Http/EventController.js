@@ -33,7 +33,7 @@ class EventController {
           title: input.title,
           frequency: input.frequency,
           description: input.description,
-          start_date: forecast_date.format('YYYY-MM-DD'),
+          start_date: forecastStartDate.format('YYYY-MM-DD'),
           end_date: forecast_date.format('YYYY-MM-DD'),
           start_time: input.start_time,
           end_time: input.end_time,
