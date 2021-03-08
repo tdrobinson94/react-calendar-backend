@@ -113,26 +113,16 @@ class EventController {
 
     const events = await Event.query().where('group_id', input.groupId).fetch();
 
-    for (let i = 0; i <= events.length; i++) {
-      // const event = await Event.findBy('id', events.id)
+    // for (let i = 0; i >= events.length; i++) {
+    //   const event = await Event.findBy('id', events.id)
 
-      // await event.delete();
+    //   await event.delete();
+    // }
 
-      response.json({
-        message: 'Group was successfully deleted',
-        events: events[i].id
-      })
-    }
-
-    // events.forEach((event) => {
-    //   let eventId = event.id;
-      
-    //   // const eventDelete = await Event.findBy('id', eventId)
-
-    //   // await eventDelete.delete();
-    // })
-
-    // await events.delete()
+    response.json({
+      message: 'Group was successfully deleted',
+      events: events
+    })
   }
 }
 
