@@ -24,12 +24,15 @@ class EventController {
 
     for (var forecast_date = moment(input.start_date); forecast_date.isBefore(input.end_date); forecast_date.add(inputFrequency, 'days')) {
       let date;
-      if (forecast_date.format('Y') % 4 == 0) {
-        inputFrequency = (Number(input.frequency) + 1).toString();
-        date = forecast_date.format('Y') + '-' + forecast_date.format('MM') + '-' + (Number(forecast_date.format('DD')) + 1).toString();
-      } else {
-        inputFrequency = input.frequency;
-        date = forecast_date.format('YYYY-MM-DD')
+      // Leap year
+      if (inputFrequency >= 365) {
+        if (forecast_date.format('Y') % 4 == 0) {
+          inputFrequency = (Number(input.frequency) + 1).toString();
+          date = forecast_date.format('Y') + '-' + forecast_date.format('MM') + '-' + (Number(forecast_date.format('DD')) + 1).toString();
+        } else {
+          inputFrequency = input.frequency;
+          date = forecast_date.format('YYYY-MM-DD')
+        }
       }
       console.log(forecast_date.format('YYYY-MM-DD'))
       var newEvent = await Event.create({
