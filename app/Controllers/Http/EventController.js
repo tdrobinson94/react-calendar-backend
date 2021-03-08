@@ -109,8 +109,8 @@ class EventController {
   }
 
   async destroyGroup({ request, response }) {
-    const input = request.post('user_id', 'group_id');
-    console.log(input.group_id);
+    const input = request.only('group_id');
+    console.log(input);
 
     // const events = await Event.query().where('user_id', input.user_id).fetch()
     // console.log(events)
