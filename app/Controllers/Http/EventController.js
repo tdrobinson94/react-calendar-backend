@@ -34,10 +34,11 @@ class EventController {
       } else if (inputFrequency === '182' || inputFrequency === '183') {
         if (forecast_date.format('Y') % 4 == 0 && forecast_date.format('YYYY-MM-DD') !== startDate) {
           inputFrequency = '183';
+          date = forecast_date.format('Y') + '-' + forecast_date.format('MM') + '-' + (Number(forecast_date.format('DD')) + 1).toString();
         } else {
           inputFrequency = '182';
+          date = forecast_date.format('YYYY-MM-DD')
         }
-        date = forecast_date.format('YYYY-MM-DD')
       } else if (inputFrequency === '30' || inputFrequency === '31' || inputFrequency === '29' || inputFrequency === '28') {
         inputFrequency = forecast_date.daysInMonth().toString();
         date = forecast_date.format('YYYY-MM-DD')
