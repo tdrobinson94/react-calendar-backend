@@ -113,7 +113,7 @@ class EventController {
     let eventList = [];
 
     const events = await Event.query().where('group_id', input.groupId).fetch();
-    eventList = events;
+    eventList = JSON.parse(events);
 
     for (let i = 0; i < eventList.length; i++) {
       let event = await Event.findBy('group_id', events[i].id);
