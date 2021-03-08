@@ -33,7 +33,7 @@ class EventController {
         }
       } else if (inputFrequency === '182' || inputFrequency === '183') {
         if (orecast_date.format('Y') % 4 == 0 && forecast_date.format('YYYY-MM-DD') !== startDate) {
-          inputFrequency = (366/2).toString();
+          inputFrequency = '183';
         } else {
           inputFrequency = '182';
         }
