@@ -25,7 +25,7 @@ class EventController {
 
     for (var forecast_date = moment(input.start_date); forecast_date.isBefore(input.end_date); forecast_date.add(input.frequency, 'days')) {
       if (forecast_date.format('Y') % 4 == 0) {
-        input.frequency += 1
+        input.frequency = (Number(input.frequency) + 1).toString();
         // console.log(input.frequency)
       }
       console.log(forecast_date.format('YYYY-MM-DD'))
