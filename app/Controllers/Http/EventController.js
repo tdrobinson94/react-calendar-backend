@@ -30,7 +30,7 @@ class EventController {
         forecast_year = forecast_date.format('Y') + '-' + forecast_date.format('MM') + '-' + (Number(forecast_date.format('DD')) + 1).toString();
       } else {
         inputFrequency = input.frequency;
-        forecast_year = forecast_date.format('YYYY-MM-DD')
+        // forecast_year = forecast_date.format('YYYY-MM-DD')
       }
       console.log(forecast_date.format('YYYY-MM-DD'))
       var newEvent = await Event.create({
