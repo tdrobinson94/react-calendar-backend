@@ -20,13 +20,17 @@ class EventController {
     let forecast_year = moment(input.start_date).format('Y');
     let forecast_month = moment(input.start_date).format('M');
     let forecast_day = moment(input.start_date).format('D');
+    let inputFrequency;
 
     let forecastStartDate = forecast_year.toString() + forecast_month.toString() + forecast_day.toString();
 
     for (var forecast_date = moment(input.start_date); forecast_date.isBefore(input.end_date); forecast_date.add(input.frequency, 'days')) {
       if (forecast_date.format('Y') % 4 == 0) {
-        input.frequency = (Number(input.frequency) + 1).toString();
-        // console.log(input.frequency)
+        inputFrequency = (Number(input.frequency) + 1).toString();
+        forecast_year = forecast_date.format('Y') + '-' + forecast_date.format('MM') + '-' + forecast_date.format('DD');
+      } else {
+        inputFrequency = input.frequency;
+        forecast_year = forecast_date.format('YYYY-MM-DD')
       }
       console.log(forecast_date.format('YYYY-MM-DD'))
       var newEvent = await Event.create({
@@ -34,10 +38,10 @@ class EventController {
         group_id: input.group_id,
         item_type: input.item_type,
         title: input.title,
-        frequency: input.frequency,
+        frequency: inputFrequency,
         description: input.description,
-        start_date: forecast_date.format('YYYY-MM-DD'),
-        end_date: forecast_date.format('YYYY-MM-DD'),
+        start_date: forecast_year,
+        end_date: forecast_year,
         start_time: input.start_time,
         end_time: input.end_time,
         location: input.location
