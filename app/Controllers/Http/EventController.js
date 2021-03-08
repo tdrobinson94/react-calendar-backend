@@ -113,7 +113,11 @@ class EventController {
 
     const events = await Event.query().where('group_id', input.groupId).fetch();
 
-    await events.delete();
+    await events.forEach((e) => {
+      const event = await Event.findBy('id', e.id)
+
+      await event.delete();
+    })
 
     response.json({
       message: 'Group was successfully deleted',
