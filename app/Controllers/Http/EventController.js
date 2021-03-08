@@ -116,9 +116,9 @@ class EventController {
     events.forEach((event) => {
       let eventId = event.id;
       
-      const event = await Event.findBy('id', eventId)
+      const eventDelete = await Event.findBy('id', eventId)
 
-      await event.delete();
+      await eventDelete.delete();
     })
 
     // await events.delete()
