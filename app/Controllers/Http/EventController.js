@@ -21,13 +21,14 @@ class EventController {
     let forecast_month = moment(input.start_date).format('M');
     let forecast_day = moment(input.start_date).format('D');
     let inputFrequency = input.frequency;
+    let startDate = moment(input.start_date);
 
     for (var forecast_date = moment(input.start_date); forecast_date.isBefore(input.end_date); forecast_date.add(inputFrequency, 'days')) {
       let date;
       // Leap year
-      if (forecast_date.format('Y') % 4 == 0) {
+      if (forecast_date.format('Y') % 4 == 0 && forecast_date !== startDate) {
         inputFrequency = (Number(input.frequency) + 1).toString();
-        if (inputFrequency === '366') {
+        if (inputFrequency === '366' ) {
           date = forecast_date.format('Y') + '-' + forecast_date.format('MM') + '-' + (Number(forecast_date.format('DD')) + 1).toString();
         }
       } else {
