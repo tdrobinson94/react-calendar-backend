@@ -114,8 +114,8 @@ class EventController {
     await Event.query().where('group_id', input.groupId).delete();
 
     response.json({
-      message: 'Group was successfully deleted',
-      events: input.groupId
+      message: 'Group' + input.groupId + 'was successfully deleted',
+      group_id: input.groupId
     })
   }
 }
