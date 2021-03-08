@@ -111,15 +111,15 @@ class EventController {
   async destroyGroup({ request, response }) {
     const input = request.post('group_id');
 
-    const events = await Event.query().where('group_id', input.group_id)
+    const events = await Event.query().where('group_id', input.group_id).fetch()
     console.log(events)
 
-    await events.delete()
+    // await events.delete()
 
-    response.json({
-      message: 'Group was successfully deleted',
-      input
-    })
+    // response.json({
+    //   message: 'Group was successfully deleted',
+    //   input
+    // })
   }
 }
 
