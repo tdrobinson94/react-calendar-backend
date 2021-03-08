@@ -23,40 +23,25 @@ class EventController {
 
     let forecastStartDate = forecast_year.toString() + forecast_month.toString() + forecast_day.toString();
 
-    if (input.frequency === 365) {
-      for (var forecast_date = moment(input.start_date); forecast_date.isBefore(input.end_date); forecast_year + 1) {
-        console.log(forecast_date.format('YYYY-MM-DD'))
-        var newEvent = await Event.create({
-          user_id: auth.user.id,
-          group_id: input.group_id,
-          item_type: input.item_type,
-          title: input.title,
-          frequency: input.frequency,
-          description: input.description,
-          start_date: (forecast_year).toString() + (forecast_date.format('MM-DD')).toString(),
-          end_date: forecast_date.format('YYYY-MM-DD'),
-          start_time: input.start_time,
-          end_time: input.end_time,
-          location: input.location
-        })
+    for (var forecast_date = moment(input.start_date); forecast_date.isBefore(input.end_date); forecast_date.add(input.frequency, 'days')) {
+      if (forecast_date.format('Y') % 4 == 0) {
+        input.frequency += 1
+        // console.log(input.frequency)
       }
-    } else {
-      for (var forecast_date = moment(input.start_date); forecast_date.isBefore(input.end_date); forecast_date.add(input.frequency, 'days')) {
-        console.log(forecast_date.format('YYYY-MM-DD'))
-        var newEvent = await Event.create({
-          user_id: auth.user.id,
-          group_id: input.group_id,
-          item_type: input.item_type,
-          title: input.title,
-          frequency: input.frequency,
-          description: input.description,
-          start_date: forecast_date.format('YYYY-MM-DD'),
-          end_date: forecast_date.format('YYYY-MM-DD'),
-          start_time: input.start_time,
-          end_time: input.end_time,
-          location: input.location
-        })
-      }
+      console.log(forecast_date.format('YYYY-MM-DD'))
+      var newEvent = await Event.create({
+        user_id: auth.user.id,
+        group_id: input.group_id,
+        item_type: input.item_type,
+        title: input.title,
+        frequency: input.frequency,
+        description: input.description,
+        start_date: forecast_date.format('YYYY-MM-DD'),
+        end_date: forecast_date.format('YYYY-MM-DD'),
+        start_time: input.start_time,
+        end_time: input.end_time,
+        location: input.location
+      })
     }
 
     return response.json(newEvent.toJSON())
