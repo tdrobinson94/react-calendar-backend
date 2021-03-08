@@ -31,6 +31,7 @@ class EventController {
         date = forecast_date.format('Y') + '-' + forecast_date.format('MM') + '-' + (Number(forecast_date.format('DD')) + 1).toString();
       } else if (inputFrequency === '30') {
         inputFrequency = forecast_date.daysInMonth().toString();
+        date = forecast_date.format('YYYY-MM-DD')
       } else {
         inputFrequency = input.frequency;
         date = forecast_date.format('YYYY-MM-DD')
