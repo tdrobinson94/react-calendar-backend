@@ -123,7 +123,7 @@ class EventController {
 
     response.json({
       message: 'Group was successfully deleted',
-      events: events
+      events: events.length
     })
   }
 }
