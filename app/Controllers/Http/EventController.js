@@ -27,7 +27,7 @@ class EventController {
       // Leap year
       if (forecast_date.format('Y') % 4 == 0) {
         inputFrequency = (Number(input.frequency) + 1).toString();
-        if (inputFrequency === 366) {
+        if (inputFrequency === '366') {
           date = forecast_date.format('Y') + '-' + forecast_date.format('MM') + '-' + (Number(forecast_date.format('DD')) + 1).toString();
         }
       } else {
