@@ -113,13 +113,13 @@ class EventController {
 
     const events = await Event.query().where('group_id', input.groupId).fetch();
 
-    events.forEach((event) => {
-      let eventId = event.id;
+    // events.forEach((event) => {
+    //   let eventId = event.id;
       
-      const eventDelete = await Event.findBy('id', eventId)
+    //   // const eventDelete = await Event.findBy('id', eventId)
 
-      await eventDelete.delete();
-    })
+    //   // await eventDelete.delete();
+    // })
 
     // await events.delete()
 
