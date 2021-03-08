@@ -20,11 +20,9 @@ class EventController {
     let forecast_year = moment(input.start_date).format('Y');
     let forecast_month = moment(input.start_date).format('M');
     let forecast_day = moment(input.start_date).format('D');
-    let inputFrequency;
+    let inputFrequency = input.frequency;
 
-    let forecastStartDate = forecast_year.toString() + forecast_month.toString() + forecast_day.toString();
-
-    for (var forecast_date = moment(input.start_date); forecast_date.isBefore(input.end_date); forecast_date.add(input.frequency, 'days')) {
+    for (var forecast_date = moment(input.start_date); forecast_date.isBefore(input.end_date); forecast_date.add(inputFrequency, 'days')) {
       let date;
       if (forecast_date.format('Y') % 4 == 0) {
         inputFrequency = (Number(input.frequency) + 1).toString();
