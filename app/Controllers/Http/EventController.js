@@ -112,15 +112,15 @@ class EventController {
     const input = request.only('user_id', 'group_id');
     console.log(input.group_id);
 
-    const events = await Event.query().where('user_id', input.user_id).fetch()
-    console.log(events)
+    // const events = await Event.query().where('user_id', input.user_id).fetch()
+    // console.log(events)
 
     // await events.delete()
 
-    // response.json({
-    //   message: 'Group was successfully deleted',
-    //   input
-    // })
+    response.json({
+      message: 'Group was successfully deleted',
+      input
+    })
   }
 }
 
